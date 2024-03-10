@@ -6,4 +6,4 @@ ForgeML
 It surges from the need to execute several things in a row, and to be able to
 easily add or remove steps in the pipeline.
 
-.. include:: ./docs/usage.rst
+.. include:: ./docs/source/usage.rst
