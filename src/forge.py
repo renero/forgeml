@@ -1,40 +1,65 @@
 """
 
 Pipeline class to define and run several execution steps.
+
 (C) J. Renero, 2023
 
 Syntax:
-    # Simply call a method of the host object
-    'method_name',
-
-    # Same, but put everything in a tuple
-    ('method_name'),
-
-    # Call a method of a class
-    ('method_name', ClassHolder),
-
-    # Call a method of the host object, and keep the result in a new attribute
-    ('new_attribute', 'method_name'),
-
-    # Call a method of the host object, with specific parameters, and keep the 
-    # result in a new attribute
-    ('new_attribute', 'method_name', {'param1': 'value1', 'param2': 'value2'}),
-
-    # Call a method of the host object, with specific parameters    
-    ('method_name', {'param1': 'value1', 'param2': 'value2'}),
+    Simply call a method of the host object
     
-    # Call a method of a specific class, with specific parameters.
-    ('method_name', ClassHolder, {'param1': 'value1'}),
+    .. code-block:: python
     
-    # Call a method of a specific class, with specific parameters, and keep the
-    # result in a new attribute
-    ('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'}),
+        'method_name',
+
+    Same, but put everything in a tuple
+    
+    .. code-block:: python
+    
+        ('method_name'),
+
+    Call a method of a class
+    
+    .. code-block:: python
+    
+        ('method_name', ClassHolder),
+
+    Call a method of the host object, and keep the result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name'),
+
+    Call a method of the host object, with specific parameters, and keep the 
+    result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name', {'param1': 'value1', 'param2': 'value2'}),
+
+    Call a method of the host object, with specific parameters    
+    
+    .. code-block:: python
+    
+        ('method_name', {'param1': 'value1', 'param2': 'value2'}),
+    
+    Call a method of a specific class, with specific parameters.
+    
+    .. code-block:: python
+    
+        ('method_name', ClassHolder, {'param1': 'value1'}),
+    
+    Call a method of a specific class, with specific parameters, and keep the
+    result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'}),
     
 """
 import inspect
 import types
 import typing
-from dataclasses import asdict, dataclass, fields
+from dataclasses import asdict, dataclass
 from importlib import import_module
 from random import getrandbits
 from typing import Any, List, Union
@@ -45,7 +70,7 @@ from rich.table import Table
 from tqdm.auto import tqdm
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
-# pylint: disable=C0103:invalid-name
+# pylint: disable=C0103:invalid-name, R0902:too-many-instance-attributes
 # pylint: disable=C0116:missing-function-docstring, C0115:missing-class-docstring
 # pylint: disable=R0913:too-many-arguments, R0903:too-few-public-methods
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements

@@ -4,8 +4,6 @@ Example of application of ForgeML to a simple case.
 (C) J. Renero, 2024
 
 """
-import numpy as np
-import pandas as pd
 from forge import Pipeline
 
 
