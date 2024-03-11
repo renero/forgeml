@@ -2,7 +2,10 @@
 
 name: ForgeML Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
