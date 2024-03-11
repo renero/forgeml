@@ -4,9 +4,7 @@ rich==13.7.1
 setuptools==68.2.2
 tqdm==4.65.2
 sphinx
-sphinxcontrib-duration
-sphinxcontrib-doctest
-sphinxcontrib-autodoc
-sphinxcontrib-autosummary
+sphinx_gallery
+sphinx_rtd_theme
 furo
 
