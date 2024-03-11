@@ -4,11 +4,11 @@ Usage
 Installation
 ------------
 
-To use ForgeML, first install it using pip:
+To use MLForge, first install it using pip:
 
 .. code-block:: console
 
-   (.venv) $ pip install forgeml
+   (.venv) $ pip install mlforge
 
 Basic Usage
 -----------
@@ -19,7 +19,7 @@ the pipeline will execute them in the order they are defined, as follows:
 
 .. code-block:: python
 
-   from forgeml import Pipeline
+   from mlforge import Pipeline
 
    pipeline = Pipeline().from_config('path/to/config.yml')
    pipeline.run()
@@ -30,7 +30,7 @@ Alternatively, you can define the tasks in your code and execute them as follows
 
 .. code-block:: python
 
-   from forgeml import Pipeline, Task
+   from mlforge import Pipeline, Task
 
    task1 = Task(
        return_variable='result',

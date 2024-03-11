@@ -11,7 +11,7 @@ setuptools.setup(
     description="A package to design and run sequential ML pipelines",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/renero/forgeml",
+    url="https://github.com/renero/mlforge",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

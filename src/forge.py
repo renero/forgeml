@@ -67,6 +67,7 @@ from typing import Any, List, Union
 from rich import print as rp
 from rich.columns import Columns
 from rich.table import Table
+
 from tqdm.auto import tqdm
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
