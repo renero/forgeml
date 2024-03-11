@@ -1,8 +1,0 @@
-docs/build/*
-src/__pycache__/*
-src/*.egg-info/*
-src/dist/*
-*.pyc
-dist/*
-build/*
-*.whl
