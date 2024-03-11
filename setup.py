@@ -5,13 +5,14 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="forgeml",
-    version="0.0.1",
+    version="0.1.0-alpha",
     author="J. Renero",
     author_email="hergestridge@gmail.com",
     description="A package to design and run sequential ML pipelines",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/renero/forgeml",
+    # url="https://github.com/renero/forgeml",
+    url="home_link",
     project_urls={
         "Bug Tracker": "package issues URL",
     },
