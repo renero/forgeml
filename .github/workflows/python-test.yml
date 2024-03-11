@@ -29,4 +29,11 @@ jobs:
       - name: Run tests
         run: |
           pip install pytest pytest-cov
-          python -m pytest --cov .
+          python -m pytest --cov=src tests/
+
+      # Upload coverage reports to Codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: renero/forgeml
