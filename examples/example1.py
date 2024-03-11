@@ -6,7 +6,6 @@ Example of application of ForgeML to a simple case.
 """
 from forge import Pipeline
 
-
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
 # pylint: disable=C0103:invalid-name
 # pylint: disable=C0116:missing-function-docstring, C0115:missing-class-docstring
