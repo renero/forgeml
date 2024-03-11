@@ -29,4 +29,4 @@ jobs:
       - name: Run tests
         run: |
           pip install pytest pytest-cov
-          pytest --cov .
+          python -m pytest --cov .
