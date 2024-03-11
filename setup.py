@@ -4,17 +4,14 @@ with open("README.rst", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="forgeml",
-    version="0.0.1",
+    name="mlforge",
+    version="0.1.0-alpha",
     author="J. Renero",
-    author_email="hergestridge@gmail.com",
+    author_email="jesus.renero@gmail.com",
     description="A package to design and run sequential ML pipelines",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/renero/forgeml",
-    project_urls={
-        "Bug Tracker": "package issues URL",
-    },
+    url="https://github.com/renero/mlforge",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

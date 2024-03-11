@@ -1,6 +1,6 @@
 """
 
-Example of application of ForgeML to a simple case.
+Example of application of MLForge to a simple case.
 (C) J. Renero, 2024
 
 """

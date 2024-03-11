@@ -2,7 +2,10 @@
 
 name: ForgeML Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -36,4 +39,4 @@ jobs:
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: renero/forgeml
+          slug: renero/mlforge
