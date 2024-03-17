@@ -4,57 +4,6 @@ Pipeline class to define and run several execution steps.
 
 (C) J. Renero, 2023
 
-Syntax:
-    Simply call a method of the host object
-    
-    .. code-block:: python
-    
-        'method_name',
-
-    Same, but put everything in a tuple
-    
-    .. code-block:: python
-    
-        ('method_name'),
-
-    Call a method of a class
-    
-    .. code-block:: python
-    
-        ('method_name', ClassHolder),
-
-    Call a method of the host object, and keep the result in a new attribute
-    
-    .. code-block:: python
-    
-        ('new_attribute', 'method_name'),
-
-    Call a method of the host object, with specific parameters, and keep the 
-    result in a new attribute
-    
-    .. code-block:: python
-    
-        ('new_attribute', 'method_name', {'param1': 'value1', 'param2': 'value2'}),
-
-    Call a method of the host object, with specific parameters    
-    
-    .. code-block:: python
-    
-        ('method_name', {'param1': 'value1', 'param2': 'value2'}),
-    
-    Call a method of a specific class, with specific parameters.
-    
-    .. code-block:: python
-    
-        ('method_name', ClassHolder, {'param1': 'value1'}),
-    
-    Call a method of a specific class, with specific parameters, and keep the
-    result in a new attribute
-    
-    .. code-block:: python
-    
-        ('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'}),
-    
 """
 import inspect
 import types
@@ -84,36 +33,14 @@ from tqdm.auto import tqdm
 
 @dataclass
 class Stage:
-    num: int
-    id: str
-    attribute_name: str
-    method_name: str
-    method_call: callable
-    class_name: type
-    parameters: dict
-    arguments: dict
-
-
-def tqdm_params(desc, prog_bar, leave=False, position=1, silent=False):
-    """
-    Generate parameters for tqdm progress bar.
-
-    Parameters:
-    - desc (str): Description for the progress bar.
-    - prog_bar (bool): Flag indicating whether to display the progress bar.
-    - leave (bool): Flag indicating whether to leave the progress bar displayed after completion.
-    - position (int): Position of the progress bar in the output.
-    - silent (bool): Flag indicating whether to disable the progress bar.
-
-    Returns:
-    - dict: Dictionary containing the generated parameters for tqdm progress bar.
-    """
-    return {
-        "desc": f"{desc:<25}",
-        "disable": ((not prog_bar) or silent),
-        "position": position,
-        "leave": leave
-    }
+    _num: int = None
+    _id: str = None
+    attribute_name: str = None
+    method_name: str = None
+    _method_call: callable = None
+    class_name: type = None
+    _parameters: dict = None
+    arguments: dict = None
 
 
 class Pipeline:
@@ -127,24 +54,41 @@ class Pipeline:
     If a function is called, it must be present globally or inside the host object.
     The pipeline can also create an attribute inside the host object with the value
     returned by the function or the fit method of the class.
+
+    Parameters
+    ----------
+    host: object
+        Object containing the parameters to be used in the execution steps.
+    prog_bar: bool
+        Flag indicating whether to display the progress bar.
+    prog_bar_params: dict
+        Dictionary containing the parameters for the progress bar.
+    verbose: bool
+        Flag indicating whether to display verbose output.
+    silent: bool
+        Flag indicating whether to disable the progress bar.
     """
 
     def __init__(
             self,
             host: type = None,
             prog_bar: bool = True,
+            prog_bar_params: dict = None,
             verbose: bool = False,
             silent: bool = False):
-        """
-        Parameters
-        ----------
-        host: object
-            Object containing the parameters to be used in the execution steps.
-        """
         self.host = host
         self.pipeline = []
         self.verbose = verbose
         self.prog_bar = prog_bar
+        self.prog_bar_params = {
+            "desc": "Running pipeline",
+            "disable": ((not self.prog_bar) or silent),
+            "position": 1,
+            "leave": False
+        }
+        if self.prog_bar:
+            self.prog_bar_params.update(prog_bar_params)
+
         self.silent = silent
         self.objects_ = {'host': self.host}
 
@@ -183,8 +127,8 @@ class Pipeline:
         method_parameters = {
             arg: parameters[arg].default for arg in parameters.keys()}
 
-        stage.method_call = method_call
-        stage.parameters = method_parameters
+        stage._method_call = method_call
+        stage._parameters = method_parameters
 
         # If step_parameters has 'self' as first key, remove it.
         if 'self' in method_parameters.keys():
@@ -395,8 +339,8 @@ class Pipeline:
                 # method_arguments.
                 if parameter in method_arguments:
                     # Two possibilities here: either the parameter is a normal value,
-                    # in which case we simply take it, or is the name of an object created
-                    # in a previous step, in which case we take the object.
+                    # in which case we simply take it, or is the name of an object
+                    # created in a previous step, in which case we take the object.
                     # But first, check if the parameter is hashable.
                     if not isinstance(method_arguments[parameter], typing.Hashable):
                         params[parameter] = method_arguments[parameter]
@@ -423,7 +367,7 @@ class Pipeline:
 
         return params
 
-    def run(self, steps: list, desc: str = "Running pipeline"):
+    def run(self, steps: list):
         """
         Run the pipeline.
 
@@ -442,9 +386,7 @@ class Pipeline:
             function or class. Each parameter must be a string corresponding to
             an attribute of the host object or a value.
         """
-        self._pbar = tqdm(total=len(steps),
-                          **tqdm_params(desc, self.prog_bar, leave=False, position=0,
-                                        silent=self.silent))
+        self._pbar = tqdm(total=len(steps), **self.prog_bar_params)
         self._pbar.update(0)
         print("-"*100) if self.verbose else None
 
@@ -456,7 +398,7 @@ class Pipeline:
                 None, None, None, None, None, None)
 
             if self.verbose:
-                print(f"Step #{step_number}({stage.id}) {str(step_name)}")
+                print(f"Step #{step_number}({stage._id}) {str(step_name)}")
 
             # Get the method to be called, the parameters that the
             # method accepts and the arguments to be passed to the method.
@@ -469,8 +411,8 @@ class Pipeline:
             # passed for the method, build the parameters to be passed to the
             # method, using default values or values from the host object.
             step_parameters = self._build_params(
-                stage.parameters, stage.arguments)
-            return_value = self._run_step(stage.method_call, step_parameters)
+                stage._parameters, stage.arguments)
+            return_value = self._run_step(stage._method_call, step_parameters)
 
             # If return value needs to be stored in a variable, do it.
             if stage.attribute_name is not None:
@@ -551,7 +493,7 @@ class Pipeline:
             # check if step name is of the form object.method
             if '.' not in step_name:
                 raise ValueError(
-                    f"step_name ({step_name}) must be method of an object: object.method")
+                    f"step_name ({step_name}) must be object's method: object.method")
             method_call = step_name
             root_object = self.host
             while '.' in method_call:

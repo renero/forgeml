@@ -4,6 +4,8 @@ rich==13.7.1
 setuptools==68.2.2
 tqdm==4.65.2
 mkdocs==1.5.3
+mkdocstrings[python]
+mkdocs-material
 sphinx
 sphinx_gallery
 sphinx_rtd_theme

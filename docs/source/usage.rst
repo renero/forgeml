@@ -43,3 +43,59 @@ Alternatively, you can define the tasks in your code and execute them as follows
     
     pipeline = Pipeline().add_tasks([task1, task2])
     pipeline.run()
+
+
+Syntax for the stages of the pipeline
+--------------------------------------
+
+Syntax:
+    Simply call a method of the host object
+    
+    .. code-block:: python
+    
+        'method_name',
+
+    Same, but put everything in a tuple
+    
+    .. code-block:: python
+    
+        ('method_name'),
+
+    Call a method of a class
+    
+    .. code-block:: python
+    
+        ('method_name', ClassHolder),
+
+    Call a method of the host object, and keep the result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name'),
+
+    Call a method of the host object, with specific parameters, and keep the 
+    result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name', {'param1': 'value1', 'param2': 'value2'}),
+
+    Call a method of the host object, with specific parameters    
+    
+    .. code-block:: python
+    
+        ('method_name', {'param1': 'value1', 'param2': 'value2'}),
+    
+    Call a method of a specific class, with specific parameters.
+    
+    .. code-block:: python
+    
+        ('method_name', ClassHolder, {'param1': 'value1'}),
+    
+    Call a method of a specific class, with specific parameters, and keep the
+    result in a new attribute
+    
+    .. code-block:: python
+    
+        ('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'}),
+    
