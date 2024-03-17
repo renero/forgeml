@@ -10,11 +10,6 @@
    
    
    .. rubric:: Functions
-
-   .. autosummary::
-   
-      tqdm_params
-   
    
 
    
