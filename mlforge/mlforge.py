@@ -86,8 +86,9 @@ class Pipeline:
             "position": 1,
             "leave": False
         }
-        if self.prog_bar:
-            self.prog_bar_params.update(prog_bar_params)
+        if prog_bar_params is not None:
+            self.prog_bar_params.update(
+                {k: v for k, v in prog_bar_params.items() if k in self.prog_bar_params})
 
         self.silent = silent
         self.objects_ = {'host': self.host}
