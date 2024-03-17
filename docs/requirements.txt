@@ -1,0 +1,7 @@
+mkdocs==1.5.3
+mkdocstrings[python]
+mkdocs-material
+sphinx
+sphinx_gallery
+sphinx_rtd_theme
+furo
