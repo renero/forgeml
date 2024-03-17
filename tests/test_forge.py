@@ -10,10 +10,12 @@ Tests for the forge module.
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
-from ..src.forge import Pipeline
 
+from ..mlforge.mlforge import Pipeline
 
 # Used to test access to global classes
+
+
 class SomeClass:
     def __init__(self):
         pass

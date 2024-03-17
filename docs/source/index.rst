@@ -1,5 +1,5 @@
-.. ForgeML documentation master file, created by
-   sphinx-quickstart on Sun Mar 10 17:40:26 2024.
+.. mlforge documentation master file, created by
+   sphinx-quickstart on Sun Mar 17 17:34:18 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -10,15 +10,10 @@ Welcome to ForgeML's documentation!
 It is designed to be simple and easy to use, not allowing conditional execution of 
 steps, but allowing the user to define the steps in a simple way.
 
-.. note::
-
-   This project is under active development.
-
-Contents
---------
-
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
+   :caption: Contents:
 
    usage
-   api
+   modules
+

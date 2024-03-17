@@ -7,3 +7,8 @@ dist/*
 build/*
 *.whl
 site/*
+docs.old/*
+docs/build/*
+docs/source/_static/*
+docs/source/_templates/*
+docs/source/api/*
