@@ -7,3 +7,14 @@ It surges from the need to execute several things in a row, and to be able to
 easily add or remove steps in the pipeline.
 
 .. include:: docs/source/usage.rst
+
+
+To do
+-----
+
+- Add a logger
+- Add a way to add a step at a specific position
+- Add a way to remove a step
+- Add a way to replace a step
+- Add a way to add a step before or after another step
+- And many other things...
