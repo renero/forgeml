@@ -1,3 +1,9 @@
+.. image:: https://github.com/renero/mlforge/actions/workflows/python-test.yml/badge.svg
+    :alt: Tests Status
+
+.. image:: https://github.com/renero/mlforge/actions/workflows/python-publish.yml/badge.svg
+    :alt: PyPi Publish Status
+
 .. image:: https://readthedocs.org/projects/mlforge/badge/?version=latest
     :target: https://mlforge.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
