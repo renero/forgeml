@@ -1,3 +1,8 @@
+.. image:: https://readthedocs.org/projects/mlforge/badge/?version=latest
+    :target: https://mlforge.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+
 ForgeML
 =======
 
