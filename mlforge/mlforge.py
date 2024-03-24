@@ -394,8 +394,7 @@ class Pipeline:
                 module_name = class_name.__module__
                 module = import_module(module_name)
                 return getattr(module, class_name.__name__)
-            raise ValueError(
-                f"Method '{method_name}' not found in class {class_name}")
+            return None
 
         # Check if the class is a valid class
         if class_name is not None and not inspect.isclass(class_name):
@@ -423,7 +422,7 @@ class Pipeline:
             raise ValueError(
                 f"Object {obj_name} not found in host object")
 
-        raise ValueError(f"Method {method_name} not found!")
+        return None
 
     def _build_params(self, method_parameters, method_arguments) -> dict:
         """

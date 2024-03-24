@@ -21,13 +21,13 @@ def example3():
     pipeline = Pipeline(host, verbose=True, prog_bar=False)
     pipeline.from_config(
         "/Users/renero/phd/code/mlforge/examples/config3.yml")
+    pipeline.show()
     pipeline.run()
 
     print(host.result1)
     print(host.param1, host.param2)
 
     print()
-    pipeline.show()
 
 
 if __name__ == "__main__":

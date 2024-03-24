@@ -11,7 +11,7 @@ Tests for the forge module.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
 
-from mlforge.mlforge import Pipeline
+from mlforge import Pipeline
 
 # Used to test access to global classes
 
@@ -84,7 +84,7 @@ def test_parse_step():
     assert class_name is None
     assert arguments is None
 
-    # Test case 2: step_name is a tuple with length 2
+    # Test case 2: the method does not exists, so the __init__ method should be called.
     attribute_name, method_name, class_name, arguments = forge._parse_step(
         ("attribute_name", SomeClass))
     assert attribute_name == "attribute_name"
