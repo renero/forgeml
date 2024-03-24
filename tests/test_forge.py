@@ -11,7 +11,7 @@ Tests for the forge module.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
 
-from ..mlforge.mlforge import Pipeline
+from mlforge.mlforge import Pipeline
 
 # Used to test access to global classes
 
