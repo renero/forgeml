@@ -7,7 +7,7 @@ Example of application of MLForge to a simple case.
 import numpy as np
 import pandas as pd
 
-from forge import Pipeline
+from mlforge.mlforge import Pipeline
 
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme

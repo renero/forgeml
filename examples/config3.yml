@@ -1,0 +1,19 @@
+step1:
+  method: method
+  class: SampleClass 
+step2:
+  attribute: object
+  class: SampleClass
+step3:
+  attribute: result1
+  method: method
+  class: SampleClass
+  arguments:
+    param2: there!
+step4:
+  method: host_method
+step5:
+  method: host_method
+  arguments:
+    param1: Hello
+    param2: there
