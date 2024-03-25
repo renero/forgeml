@@ -169,7 +169,7 @@ class Pipeline:
             attribute of the host object.
         """
         assert self.pipeline, "Pipeline is empty. No steps to run."
-        self._create_progress_bar()
+        self._pbar_create()
         if self.verbose:
             print(f"RUN pipeline with {len(self.pipeline)} steps")
 
@@ -209,7 +209,7 @@ class Pipeline:
             print("-"*100) if self.verbose else None
             self._pbar_update(1)
 
-        self._pbar.close()
+        self._pbar_close()
 
     def _get_step_components(self, forge_step: tuple, stage: Stage):
         """
@@ -561,10 +561,6 @@ class Pipeline:
             return_value)) if self.verbose else None
         return return_value
 
-    def _pbar_update(self, step=1):
-        self._pbar.update(step)
-        self._pbar.refresh()
-
     def show(self):
         """
         Show the pipeline. Print cards with the steps and the description of each step.
@@ -649,7 +645,7 @@ class Pipeline:
             print(f"> Processed {len(steps)} steps")
         return steps
 
-    def _create_progress_bar(self):
+    def _pbar_create(self):
         """
             Creates a progress bar using the tqdm library.
 
@@ -660,7 +656,29 @@ class Pipeline:
 
             Returns:
                 None
-            """
+        """
+        if len(self.pipeline) == 0:
+            self._pbar = None
+            return
+
         self._pbar = tqdm(total=len(self.pipeline), **self.prog_bar_params)
         self._pbar.update(0)
+        print("-"*100) if self.verbose else None
+
+    def _pbar_update(self, step=1):
+        """
+        Update the progress bar by the specified step.
+
+        Parameters:
+        - step (int): The step size to update the progress bar. Default is 1.
+        """
+        self._pbar.update(step)
+        self._pbar.refresh()
+
+    def _pbar_close(self):
+        """
+        Close the progress bar.
+        """
+        self._pbar.close()
+        self._pbar = None
         print("-"*100) if self.verbose else None
