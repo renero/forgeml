@@ -1,13 +1,18 @@
-.. image:: https://github.com/renero/mlforge/actions/workflows/python-test.yml/badge.svg
+|build-status| |coverage| |wheel| |documentation|
+
+.. [build-status] image:: https://github.com/renero/mlforge/actions/workflows/python-test.yml/badge.svg
     :target: https://github.com/renero/mlforge/actions/workflows/python-test.yml
     :alt: Tests Status
-.. image:: https://codecov.io/gh/renero/mlforge/graph/badge.svg?token=HRZAE9GS0I 
+
+.. [coverage] image:: https://codecov.io/gh/renero/mlforge/graph/badge.svg?token=HRZAE9GS0I 
     :target: https://codecov.io/gh/renero/mlforge
     :alt: Code Coverage
-.. image:: https://github.com/renero/mlforge/actions/workflows/python-publish.yml/badge.svg
+
+.. [wheel] image:: https://github.com/renero/mlforge/actions/workflows/python-publish.yml/badge.svg
     :target: https://pypi.org/project/mlforge/
     :alt: PyPi Publish Status
-.. image:: https://readthedocs.org/projects/mlforge/badge/?version=latest
+
+.. [documentation] image:: https://readthedocs.org/projects/mlforge/badge/?version=latest
     :target: https://mlforge.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
