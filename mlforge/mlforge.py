@@ -481,6 +481,15 @@ class Pipeline:
                 raise ValueError(
                     f"Parameter \'{parameter}\' not found in host object or globals")
 
+        # Final step: check that all the arguments suggested have been collected
+        # from the method_arguments and set into `params`. Otherwise, I'm specifying
+        # arguments that are not present in the method.
+        if method_arguments is not None:
+            for arg in method_arguments.keys():
+                if arg not in params.keys():
+                    raise ValueError(
+                        f"Parameter \'{arg}\' not found in method_parameters")
+
         return params
 
     def _run_step(
