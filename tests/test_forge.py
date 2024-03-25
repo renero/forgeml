@@ -9,13 +9,17 @@ Tests for the forge module.
 # pylint: disable=R0913:too-many-arguments, R0903:too-few-public-methods
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
+# pylint: disable=C0413:import-misplaced
 
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../mlforge')))
 
 from mlforge import Pipeline
 
 # Used to test access to global classes
-
-
 class SomeClass:
     def __init__(self):
         pass

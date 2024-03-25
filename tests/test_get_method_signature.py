@@ -11,9 +11,15 @@ Tests the get_method_signature method of the Pipeline class.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=missing-function-docstring
 # pylint: disable=W0212:protected-access, W0613:unused-argument
+# pylint: disable=C0413:import-misplaced
+
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../mlforge')))
 
 import inspect
-
 from mlforge import Pipeline
 
 

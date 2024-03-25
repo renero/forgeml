@@ -10,11 +10,14 @@ Tests for the progress bar functionality in the Pipeline class.
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=missing-function-docstring
-# pylint: disable=W0212:protected-access
+# pylint: disable=W0212:protected-access, C0413:import-misplaced
 
-
-import pytest
+import os
+import sys
 from tqdm.auto import tqdm
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../mlforge')))
 
 from mlforge import Pipeline
 

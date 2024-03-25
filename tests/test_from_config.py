@@ -10,9 +10,15 @@ Test the read of the configuration file and the creation of the pipeline
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=missing-function-docstring
 # pylint: disable=W0212:protected-access
+# pylint: disable=C0413:import-misplaced
+
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../mlforge')))
 
 from mlforge import Pipeline, Stage
-
 
 class HostClass:
     def __init__(self, param1=None, param2=None):
