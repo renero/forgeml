@@ -18,6 +18,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "mlforge"},
-    packages=setuptools.find_packages(where="mlforge"),
+    # packages=setuptools.find_packages(where="mlforge"),
+    packages=["mlforge", "tests"],
     python_requires=">=3.6"
 )
