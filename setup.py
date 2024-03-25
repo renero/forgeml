@@ -17,8 +17,8 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "mlforge"},
+    # package_dir={"": "mlforge"},
     # packages=setuptools.find_packages(where="mlforge"),
-    packages=["mlforge", "tests"],
+    packages=setuptools.find_packages(),
     python_requires=">=3.6"
 )
