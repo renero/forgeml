@@ -10,8 +10,8 @@ Tests for the build_params method.
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=W0612:unused-variable, E0602:undefined-variable
+# pylint: disable=W0413:import-misplaced
 
-from mlforge import Pipeline
 import os
 import sys
 
@@ -20,6 +20,8 @@ import pytest
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')))
+
+from mlforge import Pipeline
 
 
 class HostClass:
