@@ -11,9 +11,15 @@ Tests for the build_params method.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=W0612:unused-variable, E0602:undefined-variable
 
+from mlforge import Pipeline
+import os
+import sys
+
 import pytest
 
-from mlforge import Pipeline
+
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
 
 
 class HostClass:
