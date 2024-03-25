@@ -4,11 +4,9 @@
 .. image:: https://codecov.io/gh/renero/mlforge/graph/badge.svg?token=HRZAE9GS0I 
     :target: https://codecov.io/gh/renero/mlforge
     :alt: Code Coverage
-
 .. image:: https://github.com/renero/mlforge/actions/workflows/python-publish.yml/badge.svg
     :target: https://pypi.org/project/mlforge/
     :alt: PyPi Publish Status
-
 .. image:: https://readthedocs.org/projects/mlforge/badge/?version=latest
     :target: https://mlforge.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
