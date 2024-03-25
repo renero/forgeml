@@ -28,11 +28,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
+      - name: show python path
+        run: |
+          python -c "import sys; print('\n'.join(sys.path))"
+
       # Run tests
       - name: Run tests
         run: |
           pip install pytest pytest-cov
-          python -m pytest --cov=src tests/
+          python -m pytest --cov=mlforge tests/
 
       # Upload coverage reports to Codecov
       - name: Upload coverage reports to Codecov
