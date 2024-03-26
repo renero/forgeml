@@ -9,9 +9,8 @@ Tests the get_method_signature method of the Pipeline class.
 # pylint: disable=R0913:too-many-arguments, R0903:too-few-public-methods
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
-# pylint: disable=missing-function-docstring
+# pylint: disable=missing-function-docstring, C0413:wrong-import-position
 # pylint: disable=W0212:protected-access, W0613:unused-argument
-# pylint: disable=C0413:import-misplaced
 
 import os
 import sys

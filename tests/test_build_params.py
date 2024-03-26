@@ -10,7 +10,7 @@ Tests for the build_params method.
 # pylint: disable=R0914:too-many-locals, R0915:too-many-statements
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 # pylint: disable=W0612:unused-variable, E0602:undefined-variable
-# pylint: disable=C0413:import-misplaced
+# pylint: disable=C0413:wrong-import-position
 
 import os
 import sys
