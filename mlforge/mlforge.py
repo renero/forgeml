@@ -108,6 +108,9 @@ class Pipeline:
             assigned to any attribute of the host object.
 
         """
+        # Assert steps list is not empty
+        assert steps, "List of steps is empty. No steps to run."
+        
         if self.verbose:
             print(
                 f"Into '{self.from_list.__name__}' with '{len(steps)}' steps")
