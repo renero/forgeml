@@ -230,6 +230,13 @@ class Pipeline:
         attribute_name: str
             Name of the attribute to be created in the host object.
         """
+        # Assert that forge_step is a unique value (either a str or class_name)
+        # or a tuple that is not empty.
+        assert forge_step is not None, "Forge step cannot be None"
+        assert isinstance(forge_step, (str, type, tuple)), \
+            f"Forge step '{forge_step}' must be a string, class name or a tuple"
+        assert len(forge_step) > 0, "Forge step cannot be an empty tuple"
+
         if self.verbose:
             print(f"  > Into '{self._get_step_components.__name__}' "
                   f"with forge_step='{forge_step}'")
