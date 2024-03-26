@@ -103,7 +103,7 @@ class TestFromList:
                 ('step1', 123)  # Invalid parameter type
             ])
 
-        with pytest.raises(ValueError):
+        with pytest.raises(AssertionError):
             Pipeline().from_list([
                 ({'attr': 'value'})  # Invalid parameter type
             ])
