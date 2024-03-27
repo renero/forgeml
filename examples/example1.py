@@ -18,17 +18,16 @@ from mlforge import Pipeline
 
 def example1():
     host = HostClass()
-    pipeline = Pipeline(host, verbose=True, prog_bar=False)
     steps = [
         ('method', SampleClass),
         ('object', SampleClass),
         ('result1', 'method', SampleClass, {'param2': 'there!'}),
         ('result2', 'object.object_method'),
-
         'host_method',
         ('host_method', {'param1': 'Hello', 'param2': 'there'}),
     ]
 
+    pipeline = Pipeline(host, log_level="info", verbose=True, prog_bar=False)
     pipeline.from_list(steps)
     pipeline.run()
 
@@ -38,6 +37,7 @@ def example1():
 
     print()
     pipeline.show()
+    pipeline.close()
 
 
 if __name__ == "__main__":

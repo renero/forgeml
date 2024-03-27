@@ -1,10 +1,10 @@
-ForgeML
+MLForge
 =======
 
 |build-status| |coverage| |wheel| |documentation|
 
 
-**ForgeML** is a simple package to write simple pipelines of calls (to methods, classes, ...).
+**MLForge** is a simple package to write simple pipelines of calls (to methods, classes, ...).
 
 This is a Work in Progress.
 
