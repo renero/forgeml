@@ -220,9 +220,11 @@ class Pipeline:
             step_parameters = self._build_params(
                 stage._parameters, stage.arguments)
 
-            self.logger.info("Running step #%03d(%s) started", stage._num, stage._id)
+            self.logger.info("Running step #%03d(%s) started",
+                             stage._num, stage._id)
             return_value = self._run_step(stage._method_call, step_parameters)
-            self.logger.info("Running step #%03d(%s) finished", stage._num, stage._id)
+            self.logger.info("Running step #%03d(%s) finished",
+                             stage._num, stage._id)
 
             # If return value needs to be stored in a variable, do it.
             if stage.attribute_name is not None:
@@ -481,9 +483,9 @@ class Pipeline:
 
         """
         self._m(
-                f"        > Into '{self._build_params.__name__}' with "
-                f"method_parameters='{method_parameters}', "
-                f"method_arguments='{method_arguments}'")
+            f"        > Into '{self._build_params.__name__}' with "
+            f"method_parameters='{method_parameters}', "
+            f"method_arguments='{method_arguments}'")
 
         params = {}
         for parameter, default_value in method_parameters.items():

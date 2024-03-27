@@ -33,6 +33,4 @@ class ProgBar:
         )
         pb_name = name if name else "Progress..."
         self.main_task = self.progress.add_task(pb_name, total=num_steps)
-
-    def add_task(self, name: str, total: int):
-        return self.progress.add_task(name, total=total)
+        self.sub_task = self.progress.add_task('subtask', start=False)

@@ -12,6 +12,7 @@ Example of application of MLForge to a simple case.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
 import time
+from rich.progress import Progress
 from mlforge import Pipeline
 
 
@@ -23,14 +24,17 @@ class SlowClass:
         for _ in range(num_steps):
             time.sleep(delay)
 
+class Example:
+    def __init__(self):
+        self.pipeline = Pipeline()
+        self.pipeline.from_config(
+            "/Users/renero/phd/code/mlforge/examples/.config4.yaml")
 
-def example4():
-    pipeline = Pipeline()
-    pipeline.from_config(
-        "/Users/renero/phd/code/mlforge/examples/.config4.yaml")
-    pipeline.run()
+    def run(self):
+        self.pipeline.run()
 
 
 if __name__ == "__main__":
     print("Running example 4")
-    example4()
+    example4 = Example()
+    example4.run()
