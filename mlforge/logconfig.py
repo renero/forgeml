@@ -1,8 +1,8 @@
 """
-
+This module contains the LogConfig class, which is used to configure logging 
+for the pipeline.
 """
 
-import datetime
 import logging
 import time
 

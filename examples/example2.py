@@ -7,7 +7,7 @@ Example of application of MLForge to a simple case.
 import numpy as np
 import pandas as pd
 
-from mlforge.mlforge import Pipeline
+from mlforge import Pipeline
 
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
@@ -89,8 +89,8 @@ def example2():
         'host_method',
         ('my_method')
     ]
-
-    pipeline.run(steps)
+    pipeline.from_list(steps)
+    pipeline.run()
 
 
 if __name__ == "__main__":
