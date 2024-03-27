@@ -30,7 +30,7 @@ class SampleClass:
               f"    > I got params: {self.param1}, {self.param2}")
 
     @staticmethod
-    def method():
+    def method(param1:str, param2:str):
         print(
             f"  > Called static method \'{SampleClass.method.__name__}\'")
         return "Hi"

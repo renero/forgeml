@@ -7,6 +7,7 @@ Pipeline class to define and run several execution steps.
 """
 import importlib
 import inspect
+import logging
 import types
 import typing
 from dataclasses import asdict, dataclass
@@ -14,6 +15,7 @@ from importlib import import_module
 from random import getrandbits
 from typing import Any, List, Union
 
+from logconfig import LogConfig
 import yaml
 from rich import print as rp
 from rich.columns import Columns
@@ -70,10 +72,14 @@ class Pipeline:
     def __init__(
             self,
             host: type = None,
+            log_name: str = None,
+            log_level: str = "info",
+            log_fname: str = None,
             prog_bar: bool = True,
             prog_bar_params: dict = None,
             verbose: bool = False,
             silent: bool = False):
+
         self.host = host
         self.pipeline = []
         self.verbose = verbose
@@ -90,6 +96,24 @@ class Pipeline:
 
         self.silent = silent
         self.objects_ = {'host': self.host}
+
+        # Set logging.
+        caller = inspect.stack()[1]
+        self.caller_module = caller.frame.f_globals['__name__']
+        self.caller_filename = caller[0].f_code.co_filename
+        self.caller_filename = self.caller_filename.split('/')[-1]
+        self.logger = LogConfig.setup_logging(
+            name=log_name, level=log_level, fname=log_fname, 
+            caller_filename=self.caller_filename)
+        self.logger.debug('Pipeline initialized')
+
+    def close(self):
+        """
+        Close the pipeline.
+        """
+        self.logger.debug('Pipeline closed')
+        self.logger = None
+        logging.shutdown()
 
     def from_list(self, steps: list):
         """
@@ -110,10 +134,9 @@ class Pipeline:
         """
         # Assert steps list is not empty
         assert steps, "List of steps is empty. No steps to run."
-        
-        if self.verbose:
-            print(
-                f"Into '{self.from_list.__name__}' with '{len(steps)}' steps")
+
+        self._m(
+            f"Into '{self.from_list.__name__}' with '{len(steps)}' steps")
         for step_number, step_name in enumerate(steps):
             # Create a new stage of type Stage, and initialize it with the step number
             # and a random id.
@@ -121,8 +144,7 @@ class Pipeline:
                 step_number, f"{getrandbits(32):08x}",
                 None, None, None, None, None, None)
 
-            if self.verbose:
-                print(f"> Step #{step_number}({stage._id}) {str(step_name)}")
+            self._m(f"> Step #{step_number}({stage._id}) {str(step_name)}")
 
             # Get the method to be called, the parameters that the
             # method accepts and the arguments to be passed to the method.
@@ -142,9 +164,8 @@ class Pipeline:
         config_filename: str
             Name of the YAML configuration file.
         """
-        if self.verbose:
-            print(f"Into '{self.from_config.__name__}' with "
-                  f"config_filename='{config_filename}'")
+        self._m(f"Into '{self.from_config.__name__}' with "
+                f"config_filename='{config_filename}'")
 
         with open(config_filename, 'r', encoding='utf-8') as file:
             config = yaml.safe_load(file)
@@ -173,16 +194,15 @@ class Pipeline:
         """
         assert self.pipeline, "Pipeline is empty. No steps to run."
         self._pbar_create()
-        if self.verbose:
-            print(f"RUN pipeline with {len(self.pipeline)} steps")
+        self._m(f"RUN pipeline with {len(self.pipeline)} steps")
 
+        self.logger.info('Pipeline execution started')
         for stage in self.pipeline:
-            if self.verbose:
-                print(f"  > Step #{stage._num:>03d}({stage._id})")
-                print(f"    > attribute_name: {stage.attribute_name}")
-                print(f"    > method_name: {stage.method_name}")
-                print(f"    > class_name: {stage.class_name}")
-                print(f"    > arguments: {stage.arguments}")
+            self._m(f"  > Step #{stage._num:>03d}({stage._id})\n"
+                    f"    > attribute_name: {stage.attribute_name}\n"
+                    f"    > method_name: {stage.method_name}\n"
+                    f"    > class_name: {stage.class_name}\n"
+                    f"    > arguments: {stage.arguments}")
             # Check if step_name is a method within Host, a method or a function in globals
             stage._method_call = self._get_callable_method(
                 stage.method_name, stage.class_name)
@@ -206,13 +226,13 @@ class Pipeline:
                 # add it to the list of objects.
                 if not isinstance(return_value, type):
                     self.objects_[stage.attribute_name] = return_value
-                if self.verbose:
-                    print(f"      New attribute: <{stage.attribute_name}>")
+                self._m(f"      New attribute: <{stage.attribute_name}>")
 
             print("-"*100) if self.verbose else None
             self._pbar_update(1)
 
         self._pbar_close()
+        self.logger.info('Pipeline execution finished')
 
     def _get_step_components(self, forge_step: tuple, stage: Stage):
         """
@@ -237,9 +257,8 @@ class Pipeline:
             f"Forge step '{forge_step}' must be a string, class name or a tuple"
         assert len(forge_step) > 0, "Forge step cannot be an empty tuple"
 
-        if self.verbose:
-            print(f"  > Into '{self._get_step_components.__name__}' "
-                  f"with forge_step='{forge_step}'")
+        self._m(f"  > Into '{self._get_step_components.__name__}' "
+                f"with forge_step='{forge_step}'")
 
         stage.attribute_name, stage.method_name, stage.class_name, stage.arguments = \
             self._parse_step(forge_step)
@@ -295,9 +314,8 @@ class Pipeline:
             A 4-tuple with the attribute name, the method name, the class name 
             and the parameters.
         """
-        if self.verbose:
-            print(f"    > Into '{self._parse_step.__name__}' "
-                  f"with forge_step='{forge_step}'")
+        self._m(f"    > Into '{self._parse_step.__name__}' "
+                f"with forge_step='{forge_step}'")
 
         attribute_name, method_name, class_name, parameters = None, None, None, None
         if not isinstance(forge_step, (tuple)):
@@ -385,9 +403,7 @@ class Pipeline:
         method: callable
             Method to be called, or None if the method is not found.
         """
-        if self.verbose:
-            print(
-                f"      > Into '{self._get_callable_method.__name__}' with "
+        self._m(f"      > Into '{self._get_callable_method.__name__}' with "
                 f"method_name='{method_name}', class_name='{class_name}'")
 
         # Assert that method_name is a string or None
@@ -452,8 +468,7 @@ class Pipeline:
             Dictionary containing the parameters to be passed to the method.
 
         """
-        if self.verbose:
-            print(
+        self._m(
                 f"        > Into '{self._build_params.__name__}' with "
                 f"method_parameters='{method_parameters}', "
                 f"method_arguments='{method_arguments}'")
@@ -576,8 +591,7 @@ class Pipeline:
                 method_call = '.'.join(method_name.split('.')[1:])
             return_value = call_name(**list_of_params)
 
-        print("      > Return value:", type(
-            return_value)) if self.verbose else None
+        self._m(f"      > Return value: {type(return_value)}")
         return return_value
 
     def show(self):
@@ -634,8 +648,7 @@ class Pipeline:
         """
         steps = []
 
-        if self.verbose:
-            print(f"> caller_module: {caller_module}")
+        self._m(f"> caller_module: {caller_module}")
         module = importlib.import_module(caller_module)
 
         for nr, (step_id, step_contents) in enumerate(config.items()):
@@ -660,8 +673,7 @@ class Pipeline:
                         f"Key '{k}' not recognized in the configuration")
             steps.append(stage)
 
-        if self.verbose:
-            print(f"> Processed {len(steps)} steps")
+        self._m(f"> Processed {len(steps)} steps")
         return steps
 
     def _pbar_create(self):
@@ -700,4 +712,16 @@ class Pipeline:
         """
         self._pbar.close()
         self._pbar = None
-        print("-"*100) if self.verbose else None
+
+    def _m(self, m: str):
+        """
+        Printout message if verbose is set to True, and log.debug the message.
+        """
+        if not self.verbose:
+            return
+        print(m)
+        m = m.replace('  ', '')
+        m = m.replace('> ', '')
+        # Remove any newline character from the message
+        m = m.replace('\n', '')
+        self.logger.debug(m)
