@@ -17,7 +17,6 @@ easily add or remove steps in the pipeline.
 To do
 -----
 
-- Add a logger
 - Add a way to add a step at a specific position
 - Add a way to remove a step
 - Add a way to replace a step

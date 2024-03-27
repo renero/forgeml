@@ -1,0 +1,18 @@
+step0:
+  attribute: slow_object
+  class: SlowClass
+step1:
+  method: slow_object.slow_method
+  arguments:
+    num_steps: 10
+    delay: 0.1
+step2:
+  method: slow_object.slow_method
+  arguments:
+    num_steps: 10
+    delay: 0.1
+step3:
+  method: slow_object.slow_method
+  arguments:
+    num_steps: 10
+    delay: 0.1

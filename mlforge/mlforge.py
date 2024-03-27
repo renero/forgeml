@@ -15,8 +15,9 @@ from importlib import import_module
 from random import getrandbits
 from typing import Any, List, Union
 
-from logconfig import LogConfig
 import yaml
+from logconfig import LogConfig
+from progbar import ProgBar
 from rich import print as rp
 from rich.columns import Columns
 from rich.table import Table
@@ -76,34 +77,35 @@ class Pipeline:
             log_level: str = "info",
             log_fname: str = None,
             prog_bar: bool = True,
-            prog_bar_params: dict = None,
             verbose: bool = False,
             silent: bool = False):
+
+        # First thing is knowing who is calling the pipeline.
+        caller = inspect.stack()[1]
+        self.caller_module = caller.frame.f_globals['__name__']
+        self.caller_filename = caller[0].f_code.co_filename
+        self.caller_filename = self.caller_filename.split('/')[-1]
 
         self.host = host
         self.pipeline = []
         self.verbose = verbose
         self.prog_bar = prog_bar
-        self.prog_bar_params = {
-            "desc": "Running pipeline",
-            "disable": ((not self.prog_bar) or silent),
-            "position": 1,
-            "leave": False
-        }
-        if prog_bar_params is not None:
-            self.prog_bar_params.update(
-                {k: v for k, v in prog_bar_params.items() if k in self.prog_bar_params})
-
         self.silent = silent
         self.objects_ = {'host': self.host}
+        self.pbar = None
+
+        # Rules to sort out what to display
+        if silent:
+            self.verbose = False
+            self.prog_bar = False
+        elif verbose:
+            self.prog_bar = False
+        elif prog_bar:
+            self.verbose = False
 
         # Set logging.
-        caller = inspect.stack()[1]
-        self.caller_module = caller.frame.f_globals['__name__']
-        self.caller_filename = caller[0].f_code.co_filename
-        self.caller_filename = self.caller_filename.split('/')[-1]
         self.logger = LogConfig.setup_logging(
-            name=log_name, level=log_level, fname=log_fname, 
+            name=log_name, level=log_level, fname=log_fname,
             caller_filename=self.caller_filename)
         self.logger.debug('Pipeline initialized')
 
@@ -203,7 +205,7 @@ class Pipeline:
                     f"    > method_name: {stage.method_name}\n"
                     f"    > class_name: {stage.class_name}\n"
                     f"    > arguments: {stage.arguments}")
-            # Check if step_name is a method within Host, a method or a function in globals
+            # Check if step_name is a method within Host, or in globals
             stage._method_call = self._get_callable_method(
                 stage.method_name, stage.class_name)
             stage._parameters = self._get_method_signature(stage._method_call)
@@ -217,11 +219,20 @@ class Pipeline:
             # method, using default values or values from the host object.
             step_parameters = self._build_params(
                 stage._parameters, stage.arguments)
+
+            self.logger.info("Running step #%03d(%s) started",
+                             stage._num, stage._id)
             return_value = self._run_step(stage._method_call, step_parameters)
+            self.logger.info("Running step #%03d(%s) finished",
+                             stage._num, stage._id)
 
             # If return value needs to be stored in a variable, do it.
             if stage.attribute_name is not None:
-                setattr(self.host, stage.attribute_name, return_value)
+                # If host is None, I assign the return value to the global variable
+                if self.host is None:
+                    globals()[stage.attribute_name] = return_value
+                else:
+                    setattr(self.host, stage.attribute_name, return_value)
                 # Check if the new attribute created is an object and if so,
                 # add it to the list of objects.
                 if not isinstance(return_value, type):
@@ -273,7 +284,7 @@ class Pipeline:
         - method_call: The method to get the signature of.
 
         Returns:
-        - method_parameters: A dictionary containing the method's parameters and their 
+        - method_parameters: A dictionary containing the method's parameters and their
             default values.
         """
         parameters = inspect.signature(method_call).parameters
@@ -311,7 +322,7 @@ class Pipeline:
         Returns
         -------
         list
-            A 4-tuple with the attribute name, the method name, the class name 
+            A 4-tuple with the attribute name, the method name, the class name
             and the parameters.
         """
         self._m(f"    > Into '{self._parse_step.__name__}' "
@@ -445,6 +456,9 @@ class Pipeline:
             if hasattr(self.host, obj_name):
                 obj = getattr(self.host, obj_name)
                 return getattr(obj, method_name)
+            elif obj_name in self.objects_:
+                obj = self.objects_[obj_name]
+                return getattr(obj, method_name)
             raise ValueError(
                 f"Object {obj_name} not found in host object")
 
@@ -469,9 +483,9 @@ class Pipeline:
 
         """
         self._m(
-                f"        > Into '{self._build_params.__name__}' with "
-                f"method_parameters='{method_parameters}', "
-                f"method_arguments='{method_arguments}'")
+            f"        > Into '{self._build_params.__name__}' with "
+            f"method_parameters='{method_parameters}', "
+            f"method_arguments='{method_arguments}'")
 
         params = {}
         for parameter, default_value in method_parameters.items():
@@ -676,25 +690,24 @@ class Pipeline:
         self._m(f"> Processed {len(steps)} steps")
         return steps
 
-    def _pbar_create(self):
+    def _pbar_create(self, name: str = None):
         """
             Creates a progress bar using the tqdm library.
 
             The progress bar is used to track the progress of the pipeline execution.
 
-            Args:
-                None
+            Paramaeters:
+            ------------
+            name (str): The name of the progress bar. Default is None.
 
             Returns:
-                None
+                A ProgBar object.
         """
-        if len(self.pipeline) == 0:
-            self._pbar = None
-            return
-
-        self._pbar = tqdm(total=len(self.pipeline), **self.prog_bar_params)
-        self._pbar.update(0)
-        print("-"*100) if self.verbose else None
+        if len(self.pipeline) == 0 or self.silent or not self.prog_bar:
+            return None
+        self.pbar = ProgBar(name=name, num_steps=len(self.pipeline))
+        self.pbar.progress.start()
+        return self.pbar
 
     def _pbar_update(self, step=1):
         """
@@ -703,15 +716,22 @@ class Pipeline:
         Parameters:
         - step (int): The step size to update the progress bar. Default is 1.
         """
-        self._pbar.update(step)
-        self._pbar.refresh()
+        if self.pbar is None:
+            return
+        self.pbar.progress.update(self.pbar.main_task,
+                                  advance=step, update=True)
+        self.pbar.progress.refresh()
 
     def _pbar_close(self):
         """
         Close the progress bar.
         """
-        self._pbar.close()
-        self._pbar = None
+        if self.pbar is None:
+            return
+        self.pbar.progress.update(
+            self.pbar.main_task, completed=self.pbar.num_steps)
+        self.pbar.progress.refresh()
+        self.pbar.progress.stop()
 
     def _m(self, m: str):
         """
