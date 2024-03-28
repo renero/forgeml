@@ -719,7 +719,7 @@ class Pipeline:
         if self.pbar is None:
             return
         self.pbar.progress.update(self.pbar.main_task,
-                                  advance=step, update=True)
+                                  advance=step)
         self.pbar.progress.refresh()
 
     def _pbar_close(self):
