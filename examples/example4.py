@@ -13,7 +13,7 @@ Example of application of MLForge to a simple case.
 
 import time
 from rich.progress import Progress
-from mlforge import Pipeline
+from mlforge import Pipeline, ProgBar
 
 
 class SlowClass:
@@ -21,8 +21,14 @@ class SlowClass:
         pass
 
     def slow_method(self, num_steps, delay):
+        p = ProgBar()
+        # p.progress.reset(p.sub_task, total=num_steps)
+        p.start_subtask(num_steps)
         for _ in range(num_steps):
             time.sleep(delay)
+            p.update_subtask()
+            # p.progress.update(p.sub_task, advance=1)
+            # p.progress.refresh()
 
 class Example:
     def __init__(self):

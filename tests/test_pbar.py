@@ -14,7 +14,6 @@ Tests for the progress bar functionality in the Pipeline class.
 
 import os
 import sys
-from tqdm.auto import tqdm
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../mlforge')))
@@ -29,17 +28,18 @@ class Test_PbarUpdate:
         pipeline = Pipeline()
         pipeline.pipeline = [1, 2, 3, 4, 5]
         pipeline._pbar_create()
-        assert pipeline._pbar.total == len(pipeline.pipeline)
+        assert pipeline.pbar.progress._tasks[0].total == len(pipeline.pipeline)
 
     # The pipeline has no steps, so the progress bar is not created.
     def test_no_progress_bar_creation(self):
         pipeline = Pipeline()
         pipeline._pbar_create()
-        assert pipeline._pbar is None
+        assert pipeline.pbar is None
 
     # Can update the progress bar by a step of 1
     def test_update_progress_bar_by_step_of_1(self):
         pipeline = Pipeline()
-        pipeline._pbar = tqdm(total=10)
+        pipeline.pipeline = [1, 2, 3, 4, 5]
+        pipeline._pbar_create()
         pipeline._pbar_update(1)
-        assert pipeline._pbar.n == 1
+        assert pipeline.pbar.progress._tasks[0].completed == 1
