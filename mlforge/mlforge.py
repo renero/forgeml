@@ -21,7 +21,6 @@ from progbar import ProgBar
 from rich import print as rp
 from rich.columns import Columns
 from rich.table import Table
-from tqdm.auto import tqdm
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
 # pylint: disable=C0103:invalid-name, R0902:too-many-instance-attributes
