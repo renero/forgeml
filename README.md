@@ -7,6 +7,8 @@
     <img src="https://github.com/renero/mlforge/actions/workflows/python-publish.yml/badge.svg"></a>
 <a href="https://mlforge.readthedocs.io/en/latest/?badge=latest" alt="Docs">
     <img src="https://readthedocs.org/projects/mlforge/badge/?version=latest"></a>
+<a href="https://opensource.org/licenses/MPL-2.0">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 
 <br>
 
