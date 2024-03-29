@@ -13,6 +13,7 @@ Tests for the parse_step method.
 
 import os
 import sys
+import pytest
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../mlforge')))
@@ -144,3 +145,18 @@ class Test_ParseStep:
         assert method_name == "method_name"
         assert class_name == SomeClass
         assert arguments == {"param": "value"}
+
+    def test_parse_step_raises_value_error(self):
+        forge = Pipeline()
+
+        # Test case 1: step_name is empty
+        with pytest.raises(AssertionError):
+            forge._parse_step(())
+
+        # Test case 2: step_name is a tuple with length 5
+        with pytest.raises(AssertionError):
+            forge._parse_step(("attribute_name", "method_name", SomeClass, {"param": "value"}, "extra"))
+
+        # Test case 3: step_name is a tuple with length 3, but the class does not exist
+        with pytest.raises(ValueError):
+            forge._parse_step(("attribute_name", "method_name", "SomeClass"))

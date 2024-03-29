@@ -13,6 +13,21 @@ from rich.progress import (
 
 
 class Singleton(type):
+    """
+    A metaclass that allows a class to have only one instance.
+
+    This metaclass ensures that only one instance of a class is created and
+    provides a global point of access to that instance.
+
+    Usage:
+    class MyClass(metaclass=Singleton):
+        # class definition
+
+    Note:
+    This metaclass should be used as a metaclass for the class that you want
+    to make a singleton.
+    """
+
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -27,12 +42,9 @@ class ProgBar(metaclass=Singleton):
     Implements a progress bar for the mlforge package.
     """
 
-    def __init__(self, name: str = None, num_steps: int = None):
-
-        # assert num_steps is not None, "Number of steps must be provided."
-        # assert num_steps > 0, "Number of steps must be greater than 0."
-
+    def __init__(self, name: str = None, num_steps: int = None, subtask: bool = False):
         self.num_steps = num_steps
+        self.subtask = subtask
         self.progress = Progress(
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             BarColumn(),
@@ -44,7 +56,8 @@ class ProgBar(metaclass=Singleton):
         )
         pb_name = name if name else "Progress..."
         self.main_task = self.progress.add_task(pb_name, total=num_steps)
-        self.sub_task = self.progress.add_task('subtask', start=False)
+        if self.subtask:
+            self.sub_task = self.progress.add_task('subtask', start=False)
 
     def start_subtask(self, num_steps: int):
         """

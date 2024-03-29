@@ -8,6 +8,7 @@ Pipeline class to define and run several execution steps.
 import importlib
 import inspect
 import logging
+import time
 import types
 import typing
 from dataclasses import asdict, dataclass
@@ -41,6 +42,9 @@ class Stage:
     class_name: type = None
     _parameters: dict = None
     arguments: dict = None
+    _timestamp_start: float = None
+    _timestamp_end: float = None
+    _duration: float = None
 
 
 class Pipeline:
@@ -59,10 +63,18 @@ class Pipeline:
     ----------
     host: object
         Object containing the parameters to be used in the execution steps.
+    log_name: str
+        Name of the logger.
+    log_level: str
+        Level of the logger.
+    log_fname: str
+        Name of the log file.
     prog_bar: bool
         Flag indicating whether to display the progress bar.
-    prog_bar_params: dict
-        Dictionary containing the parameters for the progress bar.
+    subtask: bool
+        Indicates whether to show a secondary progress bar to show the progress of
+        each stage. This flag requires that each method in the pipeline will call
+        the `ProgBar` object to update the progress bar.
     verbose: bool
         Flag indicating whether to display verbose output.
     silent: bool
@@ -76,6 +88,7 @@ class Pipeline:
             log_level: str = "info",
             log_fname: str = None,
             prog_bar: bool = True,
+            subtask: bool = False,
             verbose: bool = False,
             silent: bool = False):
 
@@ -89,16 +102,21 @@ class Pipeline:
         self.pipeline = []
         self.verbose = verbose
         self.prog_bar = prog_bar
+        self.subtask = subtask
         self.silent = silent
+        self.attributes_ = {}
         self.objects_ = {'host': self.host}
         self.pbar = None
+        self.run_ = False
 
         # Rules to sort out what to display
         if silent:
             self.verbose = False
             self.prog_bar = False
+            self.subtask = False
         elif verbose:
             self.prog_bar = False
+            self.subtask = False
         elif prog_bar:
             self.verbose = False
 
@@ -177,6 +195,26 @@ class Pipeline:
         # Process the config and set the pipeline steps
         self.pipeline = self._process_config(config, caller_module)
 
+    def add_stages(self, stages: list):
+        """
+        Add stages to the pipeline.
+
+        Parameters
+        ----------
+        stages: list
+            List of stages to be added to the pipeline.
+        """
+        self._m(
+            f"Into '{self.add_stages.__name__}' with '{len(stages)}' stages")
+
+        # This method can be called wiht a pipeline that already has stages.
+        last_idx = len(self.pipeline)
+
+        for idx, stage in enumerate(stages):
+            stage._num = idx + last_idx
+            stage._id = f"{getrandbits(32):08x}"
+            self.pipeline.append(stage)
+
     def run(self):
         """
         Run the pipeline.
@@ -221,7 +259,10 @@ class Pipeline:
 
             self.logger.info("Running step #%03d(%s) started",
                              stage._num, stage._id)
+            stage._timestamp_start = time.time()
             return_value = self._run_step(stage._method_call, step_parameters)
+            stage._timestamp_end = time.time()
+            stage._duration = stage._timestamp_end - stage._timestamp_start
             self.logger.info("Running step #%03d(%s) finished",
                              stage._num, stage._id)
 
@@ -229,7 +270,8 @@ class Pipeline:
             if stage.attribute_name is not None:
                 # If host is None, I assign the return value to the global variable
                 if self.host is None:
-                    globals()[stage.attribute_name] = return_value
+                    self.attributes_[stage.attribute_name] = return_value
+                    # globals()[stage.attribute_name] = return_value
                 else:
                     setattr(self.host, stage.attribute_name, return_value)
                 # Check if the new attribute created is an object and if so,
@@ -243,6 +285,7 @@ class Pipeline:
 
         self._pbar_close()
         self.logger.info('Pipeline execution finished')
+        self.run_ = True
 
     def _get_step_components(self, forge_step: tuple, stage: Stage):
         """
@@ -306,6 +349,7 @@ class Pipeline:
         ('new_attribute', ClassHolder)
         ('method_name', {'param1': 'value1'})
 
+        ('new_attribute', 'method_name', ClassHolder)
         ('new_attribute', 'method_name', {'param1': 'value1'})
         ('new_attribute', ClassHolder, {'param1': 'value1'})
         ('method_name', ClassHolder, {'param1': 'value1'})
@@ -331,8 +375,15 @@ class Pipeline:
         if not isinstance(forge_step, (tuple)):
             forge_step = (forge_step,)
 
-        # Check if step_name is a string/class or a tuple. In the former case,
-        # this value is a method name or a class name.
+        # Assert that the length of the tuple is between 1 and 4
+        assert len(forge_step) > 0 and len(forge_step) < 5, \
+            f"Tuple '{forge_step}' must have between 1 and 4 elements"
+
+        # Checks---------------------------------------------------------------
+        # 'method_name'
+        # ClassHolder
+        # ('method_name')
+        # (ClassHolder)
         if len(forge_step) == 1:
             if isinstance(forge_step[0], str):
                 method_name = forge_step[0]
@@ -341,9 +392,12 @@ class Pipeline:
             else:
                 raise ValueError(
                     f"Parameter \'{forge_step}\' must be a string or a class")
+        # Checks---------------------------------------------------------------
+        # ('method_name', ClassHolder)
+        # ('new_attribute', 'method_name')
+        # ('new_attribute', ClassHolder)
+        # ('method_name', {'param1': 'value1'})
         elif len(forge_step) == 2:
-            # When second element is a class, the first element can be a method name
-            # or an attribute name.
             if isinstance(forge_step[1], type):
                 # Check if the first element is a method name or an attribute name
                 if isinstance(forge_step[0], str) and \
@@ -365,25 +419,34 @@ class Pipeline:
                 raise ValueError(
                     f"Tuple \'{forge_step}\' with 2 elements must be either "
                     f"(str, class), (str, str) or (str, dict)")
+        # Checks---------------------------------------------------------------
+        # ('new_attribute', 'method_name',  ClassHolder)
+        # ('new_attribute', 'method_name', {'param1': 'value1'})
+        # ('new_attribute',  ClassHolder,  {'param1': 'value1'})
+        # ('method_name',    ClassHolder,  {'param1': 'value1'})
         elif len(forge_step) == 3:
-            if not isinstance(forge_step[2], dict):
-                raise ValueError(
-                    f"Third element of tuple \'{forge_step}\' must be a dictionary"
-                    f"with arguments for the call to the method or class")
             if isinstance(forge_step[0], str) and isinstance(forge_step[1], str):
-                attribute_name, method_name, parameters = forge_step
-            # Check the type of the first element of the tuple. If is is a method
-            # name, the second element must be a class name.
-            elif self._get_callable_method(forge_step[0], forge_step[1]) is not None \
-                    and isinstance(forge_step[1], type):
-                method_name, class_name, parameters = forge_step
+                if isinstance(forge_step[2], type):
+                    attribute_name, method_name, class_name = forge_step
+                elif isinstance(forge_step[2], dict):
+                    attribute_name, method_name, parameters = forge_step
+                else:
+                    raise ValueError(
+                        f"Tuple \'{forge_step}\' with 3 elements must be "
+                        f"(str, str, class) or (str, str, dict)")
             elif self._get_callable_method(forge_step[0], forge_step[1]) is None and \
                     isinstance(forge_step[1], type):
                 attribute_name, class_name, parameters = forge_step
+            elif self._get_callable_method(forge_step[0], forge_step[1]) is not None \
+                    and isinstance(forge_step[1], type):
+                method_name, class_name, parameters = forge_step
             else:
                 raise ValueError(
                     f"Tuple \'{forge_step}\' with 3 elements must be either "
                     f"(str, str, dict) or (str, class, dict)")
+        # Checks---------------------------------------------------------------
+        # ('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'})
+        # ('new_attribute', 'method_name', 'object_name', {'param1': 'value1'})
         elif len(forge_step) == 4:
             if isinstance(forge_step[1], str) and isinstance(forge_step[2], type) and \
                     isinstance(forge_step[3], dict):
@@ -623,8 +686,8 @@ class Pipeline:
             # Loop through the elements of the stage tuple
             for k, v in asdict(self.pipeline[i]).items():
                 if k == '_num' or k == '_id' or k == '_method_call' or \
-                    k == "_parameters" \
-                        or v is None:
+                    k == "_parameters" or k == "_timestamp_start" or \
+                        k == "_timestamp_end" or k == "_duration" or v is None:
                     continue
                 if isinstance(v, dict) and v:
                     line += f"[yellow1]{k}[/yellow1]:\n"
@@ -644,6 +707,32 @@ class Pipeline:
 
         columns = Columns(columns_layout)
         rp(columns)
+
+    def duration(self):
+        """
+        This method displays the duration of each stage of the pipeline, and the
+        total duration of the pipeline. Each stage duration is displayed in seconds
+        or in milliseconds, depending on the duration. Each line represents a stage
+        and the last line represents the total duration of the pipeline.
+        """
+        print("Duration of each stage of the pipeline:")
+        for stage in self.pipeline:
+            if stage._duration < 1:
+                print(
+                    f"Stage #{stage._num:>03d} ({stage._id}): "
+                    f"{stage._duration*1000:.03f} ms")
+            else:
+                print(
+                    f"Stage #{stage._num:>03d} ({stage._id}): "
+                    f"{stage._duration:.2f} s")
+
+        total_duration = sum([stage._duration for stage in self.pipeline])
+        if total_duration < 1:
+            print(
+                f"Total duration: {total_duration*1000:.03f} ms")
+        else:
+            print(
+                f"Total duration: {total_duration:.2f} s")
 
     def _process_config(self, config: dict, caller_module) -> dict:
         """
@@ -689,6 +778,19 @@ class Pipeline:
         self._m(f"> Processed {len(steps)} steps")
         return steps
 
+    def get_attribute(self, attribute_name):
+        """
+        This method returns the value of the attribute with the given name. If the
+        pipeline has not been run, the attribute will not exist and the method will
+        return None. If the attribute does not exist, the method will raise an
+        AttributeError.
+        """
+        if not self.run_:
+            return None
+        if attribute_name in self.attributes_:
+            return self.attributes_[attribute_name]
+        raise AttributeError(f"Attribute '{attribute_name}' not found")
+
     def _pbar_create(self, name: str = None):
         """
             Creates a progress bar using the tqdm library.
@@ -704,7 +806,8 @@ class Pipeline:
         """
         if len(self.pipeline) == 0 or self.silent or not self.prog_bar:
             return None
-        self.pbar = ProgBar(name=name, num_steps=len(self.pipeline))
+        self.pbar = ProgBar(
+            name=name, num_steps=len(self.pipeline), subtask=self.subtask)
         self.pbar.progress.start()
         return self.pbar
 
@@ -736,9 +839,8 @@ class Pipeline:
         """
         Printout message if verbose is set to True, and log.debug the message.
         """
-        if not self.verbose:
-            return
-        print(m)
+        if self.verbose:
+            print(m)
         m = m.replace('  ', '')
         m = m.replace('> ', '')
         # Remove any newline character from the message
