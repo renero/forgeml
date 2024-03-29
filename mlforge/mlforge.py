@@ -8,6 +8,7 @@ Pipeline class to define and run several execution steps.
 import importlib
 import inspect
 import logging
+import time
 import types
 import typing
 from dataclasses import asdict, dataclass
@@ -41,6 +42,9 @@ class Stage:
     class_name: type = None
     _parameters: dict = None
     arguments: dict = None
+    _timestamp_start: float = None
+    _timestamp_end: float = None
+    _duration: float = None
 
 
 class Pipeline:
@@ -59,10 +63,18 @@ class Pipeline:
     ----------
     host: object
         Object containing the parameters to be used in the execution steps.
+    log_name: str
+        Name of the logger.
+    log_level: str
+        Level of the logger.
+    log_fname: str
+        Name of the log file.
     prog_bar: bool
         Flag indicating whether to display the progress bar.
-    prog_bar_params: dict
-        Dictionary containing the parameters for the progress bar.
+    subtask: bool
+        Indicates whether to show a secondary progress bar to show the progress of
+        each stage. This flag requires that each method in the pipeline will call
+        the `ProgBar` object to update the progress bar.
     verbose: bool
         Flag indicating whether to display verbose output.
     silent: bool
@@ -76,6 +88,7 @@ class Pipeline:
             log_level: str = "info",
             log_fname: str = None,
             prog_bar: bool = True,
+            subtask: bool = False,
             verbose: bool = False,
             silent: bool = False):
 
@@ -89,6 +102,7 @@ class Pipeline:
         self.pipeline = []
         self.verbose = verbose
         self.prog_bar = prog_bar
+        self.subtask = subtask
         self.silent = silent
         self.attributes_ = {}
         self.objects_ = {'host': self.host}
@@ -99,8 +113,10 @@ class Pipeline:
         if silent:
             self.verbose = False
             self.prog_bar = False
+            self.subtask = False
         elif verbose:
             self.prog_bar = False
+            self.subtask = False
         elif prog_bar:
             self.verbose = False
 
@@ -188,7 +204,8 @@ class Pipeline:
         stages: list
             List of stages to be added to the pipeline.
         """
-        self._m(f"Into '{self.add_stages.__name__}' with '{len(stages)}' stages")
+        self._m(
+            f"Into '{self.add_stages.__name__}' with '{len(stages)}' stages")
 
         # This method can be called wiht a pipeline that already has stages.
         last_idx = len(self.pipeline)
@@ -242,7 +259,10 @@ class Pipeline:
 
             self.logger.info("Running step #%03d(%s) started",
                              stage._num, stage._id)
+            stage._timestamp_start = time.time()
             return_value = self._run_step(stage._method_call, step_parameters)
+            stage._timestamp_end = time.time()
+            stage._duration = stage._timestamp_end - stage._timestamp_start
             self.logger.info("Running step #%03d(%s) finished",
                              stage._num, stage._id)
 
@@ -666,8 +686,8 @@ class Pipeline:
             # Loop through the elements of the stage tuple
             for k, v in asdict(self.pipeline[i]).items():
                 if k == '_num' or k == '_id' or k == '_method_call' or \
-                    k == "_parameters" \
-                        or v is None:
+                    k == "_parameters" or k == "_timestamp_start" or \
+                        k == "_timestamp_end" or k == "_duration" or v is None:
                     continue
                 if isinstance(v, dict) and v:
                     line += f"[yellow1]{k}[/yellow1]:\n"
@@ -687,6 +707,32 @@ class Pipeline:
 
         columns = Columns(columns_layout)
         rp(columns)
+
+    def duration(self):
+        """
+        This method displays the duration of each stage of the pipeline, and the
+        total duration of the pipeline. Each stage duration is displayed in seconds
+        or in milliseconds, depending on the duration. Each line represents a stage
+        and the last line represents the total duration of the pipeline.
+        """
+        print("Duration of each stage of the pipeline:")
+        for stage in self.pipeline:
+            if stage._duration < 1:
+                print(
+                    f"Stage #{stage._num:>03d} ({stage._id}): "
+                    f"{stage._duration*1000:.03f} ms")
+            else:
+                print(
+                    f"Stage #{stage._num:>03d} ({stage._id}): "
+                    f"{stage._duration:.2f} s")
+
+        total_duration = sum([stage._duration for stage in self.pipeline])
+        if total_duration < 1:
+            print(
+                f"Total duration: {total_duration*1000:.03f} ms")
+        else:
+            print(
+                f"Total duration: {total_duration:.2f} s")
 
     def _process_config(self, config: dict, caller_module) -> dict:
         """
@@ -760,7 +806,8 @@ class Pipeline:
         """
         if len(self.pipeline) == 0 or self.silent or not self.prog_bar:
             return None
-        self.pbar = ProgBar(name=name, num_steps=len(self.pipeline))
+        self.pbar = ProgBar(
+            name=name, num_steps=len(self.pipeline), subtask=self.subtask)
         self.pbar.progress.start()
         return self.pbar
 
@@ -792,9 +839,8 @@ class Pipeline:
         """
         Printout message if verbose is set to True, and log.debug the message.
         """
-        if not self.verbose:
-            return
-        print(m)
+        if self.verbose:
+            print(m)
         m = m.replace('  ', '')
         m = m.replace('> ', '')
         # Remove any newline character from the message

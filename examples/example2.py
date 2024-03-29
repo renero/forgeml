@@ -22,8 +22,6 @@ class Host:
     def __init__(self, param1, param2):
         self.param1 = param1
         self.param2 = param2
-        self.X = pd.DataFrame(np.random.randint(
-            0, 100, size=(100, 4)), columns=list('ABCD'))
 
     def host_method(self):
         return "Host.host_method"
@@ -63,16 +61,14 @@ what_msg = "(argument for m1 and m2)"
 
 def example2():
     host = Host('host_value1', 'host_value2')
-    pipeline = Pipeline(host)
-    print(f"Host object: {host}")
-    print(f"Pipeline initiated: {pipeline}")
+    pipeline = Pipeline(host, log_level="info")
 
     steps = [
         ('myobject1', SampleClass),
         ('method_with_object', {'obj': 'myobject1'}),
         ('r1', 'm1'),
         ('r2', 'm2', {'msg': 'new_what_value'}),
-        ('r3', 'm2', {'msg': host.X}),
+        ('r3', 'm2', {'msg': host.param1}),
         ('myobject2', SampleClass, {'param2': True}),
         ('myobject2.fit'),
         'myobject2.method',
@@ -81,6 +77,7 @@ def example2():
     ]
     pipeline.from_list(steps)
     pipeline.run()
+    pipeline.duration()
 
 
 if __name__ == "__main__":

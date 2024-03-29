@@ -22,17 +22,14 @@ class SlowClass:
 
     def slow_method(self, num_steps, delay):
         p = ProgBar()
-        # p.progress.reset(p.sub_task, total=num_steps)
         p.start_subtask(num_steps)
         for _ in range(num_steps):
             time.sleep(delay)
             p.update_subtask()
-            # p.progress.update(p.sub_task, advance=1)
-            # p.progress.refresh()
 
 class Example:
     def __init__(self):
-        self.pipeline = Pipeline()
+        self.pipeline = Pipeline(subtask=True)
         self.pipeline.from_config(
             "/Users/renero/phd/code/mlforge/examples/.config4.yaml")
 
