@@ -18,7 +18,7 @@ Installation
 
 To use MLForge, first install it using pip:
 
-.. code-block:: console
+ .. code-block:: console
 
    (.venv) $ pip install mlforge
 
@@ -30,7 +30,8 @@ The general assumption is that this module will help you out in executing a pipe
 of tasks. The tasks are defined in a configuration file, or within your code, and
 the pipeline will execute them in the order they are defined, as follows:
 
-.. code-block:: python
+ .. code-block:: python
+    :linenos:
 
    from mlforge import Pipeline
 
@@ -40,7 +41,7 @@ the pipeline will execute them in the order they are defined, as follows:
 The configuration file is a YAML file that defines the tasks to be executed. The
 following is an example of YAML configuration file:
 
-.. code-block:: yaml
+ .. code-block:: yaml
 
    step1:
        method: method
