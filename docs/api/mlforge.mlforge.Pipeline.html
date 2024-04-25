@@ -1,0 +1,1759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>mlforge.mlforge.Pipeline</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          mlforge <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="mlforge.mlforge.Pipeline.html" class="internal-link" title="This class"><wbr></wbr>Pipeline</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="mlforge.mlforge.Pipeline.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#add_stages" class="internal-link" title="mlforge.mlforge.Pipeline.add_stages">add<wbr></wbr>_stages</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#close" class="internal-link" title="mlforge.mlforge.Pipeline.close">close</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#duration" class="internal-link" title="mlforge.mlforge.Pipeline.duration">duration</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#from_config" class="internal-link" title="mlforge.mlforge.Pipeline.from_config">from<wbr></wbr>_config</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#from_list" class="internal-link" title="mlforge.mlforge.Pipeline.from_list">from<wbr></wbr>_list</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_attribute" class="internal-link" title="mlforge.mlforge.Pipeline.get_attribute">get<wbr></wbr>_attribute</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#run" class="internal-link" title="mlforge.mlforge.Pipeline.run">run</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#show" class="internal-link" title="mlforge.mlforge.Pipeline.show">show</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_build_params" class="internal-link" title="mlforge.mlforge.Pipeline._build_params">_build<wbr></wbr>_params</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_get_callable_method" class="internal-link" title="mlforge.mlforge.Pipeline._get_callable_method">_get<wbr></wbr>_callable<wbr></wbr>_method</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_get_method_signature" class="internal-link" title="mlforge.mlforge.Pipeline._get_method_signature">_get<wbr></wbr>_method<wbr></wbr>_signature</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_get_step_components" class="internal-link" title="mlforge.mlforge.Pipeline._get_step_components">_get<wbr></wbr>_step<wbr></wbr>_components</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_m" class="internal-link" title="mlforge.mlforge.Pipeline._m">_m</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_parse_step" class="internal-link" title="mlforge.mlforge.Pipeline._parse_step">_parse<wbr></wbr>_step</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_pbar_close" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_close">_pbar<wbr></wbr>_close</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_pbar_create" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_create">_pbar<wbr></wbr>_create</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_pbar_update" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_update">_pbar<wbr></wbr>_update</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_process_config" class="internal-link" title="mlforge.mlforge.Pipeline._process_config">_process<wbr></wbr>_config</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_run_step" class="internal-link" title="mlforge.mlforge.Pipeline._run_step">_run<wbr></wbr>_step</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#attributes_" class="internal-link" title="mlforge.mlforge.Pipeline.attributes_">attributes_</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#caller_filename" class="internal-link" title="mlforge.mlforge.Pipeline.caller_filename">caller<wbr></wbr>_filename</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#caller_module" class="internal-link" title="mlforge.mlforge.Pipeline.caller_module">caller<wbr></wbr>_module</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#host" class="internal-link" title="mlforge.mlforge.Pipeline.host">host</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#logger" class="internal-link" title="mlforge.mlforge.Pipeline.logger">logger</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#objects_" class="internal-link" title="mlforge.mlforge.Pipeline.objects_">objects_</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#pbar" class="internal-link" title="mlforge.mlforge.Pipeline.pbar">pbar</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#pipeline" class="internal-link" title="mlforge.mlforge.Pipeline.pipeline">pipeline</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#prog_bar" class="internal-link" title="mlforge.mlforge.Pipeline.prog_bar">prog<wbr></wbr>_bar</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#run_" class="internal-link" title="mlforge.mlforge.Pipeline.run_">run_</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#silent" class="internal-link" title="mlforge.mlforge.Pipeline.silent">silent</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#subtask" class="internal-link" title="mlforge.mlforge.Pipeline.subtask">subtask</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#verbose" class="internal-link" title="mlforge.mlforge.Pipeline.verbose">verbose</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="mlforge.mlforge.html" class="internal-link" title="The parent of this class">mlforge</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="mlforge.mlforge.Pipeline.html" class="internal-link" title="mlforge.mlforge.Pipeline"><wbr></wbr>Pipeline</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="mlforge.mlforge.Stage.html" class="internal-link" title="mlforge.mlforge.Stage"><wbr></wbr>Stage</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">mlforge</a></code><wbr></wbr>.<code><a href="mlforge.mlforge.html" class="internal-link" title="mlforge.mlforge">mlforge</a></code><wbr></wbr>.<code><a href="mlforge.mlforge.Pipeline.html" class="internal-link" title="mlforge.mlforge.Pipeline">Pipeline</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Pipeline</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="mlforge.mlforge.Pipeline.__init__">Pipeline(host, log_name, log_level, log_fname, ...)</a></code></p>
+          <p><a href="classIndex.html#mlforge.mlforge.Pipeline">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p class="pre">Pipeline class allows to define several execution steps to run sequentially.
+Pipeline is initialized with a host object that contains the parameters to be
+used in the execution steps.
+At each step, the pipeline can call either a function or a class. If a class
+is called, the pipeline will call the default method of the class. Such a default
+method must be specified in the pipeline constructor.
+If a function is called, it must be present globally or inside the host object.
+The pipeline can also create an attribute inside the host object with the value
+returned by the function or the fit method of the class.
+
+Parameters
+----------
+host: object
+    Object containing the parameters to be used in the execution steps.
+log_name: str
+    Name of the logger.
+log_level: str
+    Level of the logger.
+log_fname: str
+    Name of the log file.
+prog_bar: bool
+    Flag indicating whether to display the progress bar.
+subtask: bool
+    Indicates whether to show a secondary progress bar to show the progress of
+    each stage. This flag requires that each method in the pipeline will call
+    the `ProgBar` object to update the progress bar.
+verbose: bool
+    Flag indicating whether to display verbose output.
+silent: bool
+    Flag indicating whether to disable the progress bar.</p></div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id6">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="mlforge.mlforge.Pipeline.__init__">__init__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#add_stages" class="internal-link" title="mlforge.mlforge.Pipeline.add_stages">add<wbr></wbr>_stages</a></code></td>
+    <td>Add stages to the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#close" class="internal-link" title="mlforge.mlforge.Pipeline.close">close</a></code></td>
+    <td>Close the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#duration" class="internal-link" title="mlforge.mlforge.Pipeline.duration">duration</a></code></td>
+    <td>This method displays the duration of each stage of the pipeline, and the total duration of the pipeline. Each stage duration is displayed in seconds or in milliseconds, depending on the duration. Each line represents a stage and the last line represents the total duration of the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#from_config" class="internal-link" title="mlforge.mlforge.Pipeline.from_config">from<wbr></wbr>_config</a></code></td>
+    <td>Load a pipeline from a YAML configuration file.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#from_list" class="internal-link" title="mlforge.mlforge.Pipeline.from_list">from<wbr></wbr>_list</a></code></td>
+    <td>Load a pipeline from a list of steps.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_attribute" class="internal-link" title="mlforge.mlforge.Pipeline.get_attribute">get<wbr></wbr>_attribute</a></code></td>
+    <td>This method returns the value of the attribute with the given name. If the pipeline has not been run, the attribute will not exist and the method will return None. If the attribute does not exist, the method will raise an AttributeError.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#run" class="internal-link" title="mlforge.mlforge.Pipeline.run">run</a></code></td>
+    <td>Run the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#show" class="internal-link" title="mlforge.mlforge.Pipeline.show">show</a></code></td>
+    <td>Show the pipeline. Print cards with the steps and the description of each step.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#attributes_" class="internal-link" title="mlforge.mlforge.Pipeline.attributes_">attributes_</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#caller_filename" class="internal-link" title="mlforge.mlforge.Pipeline.caller_filename">caller<wbr></wbr>_filename</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#caller_module" class="internal-link" title="mlforge.mlforge.Pipeline.caller_module">caller<wbr></wbr>_module</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#host" class="internal-link" title="mlforge.mlforge.Pipeline.host">host</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#logger" class="internal-link" title="mlforge.mlforge.Pipeline.logger">logger</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#objects_" class="internal-link" title="mlforge.mlforge.Pipeline.objects_">objects_</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#pbar" class="internal-link" title="mlforge.mlforge.Pipeline.pbar">pbar</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#pipeline" class="internal-link" title="mlforge.mlforge.Pipeline.pipeline">pipeline</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#prog_bar" class="internal-link" title="mlforge.mlforge.Pipeline.prog_bar">prog<wbr></wbr>_bar</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#run_" class="internal-link" title="mlforge.mlforge.Pipeline.run_">run_</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#silent" class="internal-link" title="mlforge.mlforge.Pipeline.silent">silent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#subtask" class="internal-link" title="mlforge.mlforge.Pipeline.subtask">subtask</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#verbose" class="internal-link" title="mlforge.mlforge.Pipeline.verbose">verbose</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_build_params" class="internal-link" title="mlforge.mlforge.Pipeline._build_params">_build<wbr></wbr>_params</a></code></td>
+    <td>This method builds the parameters to be passed to the method, using default values or values from the host object.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_get_callable_method" class="internal-link" title="mlforge.mlforge.Pipeline._get_callable_method">_get<wbr></wbr>_callable<wbr></wbr>_method</a></code></td>
+    <td>Given a method name, get the callable method from the `host` object, this very object, or the globals. If the method is not found, return None.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_get_method_signature" class="internal-link" title="mlforge.mlforge.Pipeline._get_method_signature">_get<wbr></wbr>_method<wbr></wbr>_signature</a></code></td>
+    <td>Get the signature of a method.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_get_step_components" class="internal-link" title="mlforge.mlforge.Pipeline._get_step_components">_get<wbr></wbr>_step<wbr></wbr>_components</a></code></td>
+    <td>Get the components of a forge step, in a way that can be used to invoke it.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_m" class="internal-link" title="mlforge.mlforge.Pipeline._m">_m</a></code></td>
+    <td>Printout message if verbose is set to True, and log.debug the message.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_parse_step" class="internal-link" title="mlforge.mlforge.Pipeline._parse_step">_parse<wbr></wbr>_step</a></code></td>
+    <td>Parse a forge step to know who is who. The options are</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_pbar_close" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_close">_pbar<wbr></wbr>_close</a></code></td>
+    <td>Close the progress bar.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_pbar_create" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_create">_pbar<wbr></wbr>_create</a></code></td>
+    <td>Creates a progress bar using the tqdm library.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_pbar_update" class="internal-link" title="mlforge.mlforge.Pipeline._pbar_update">_pbar<wbr></wbr>_update</a></code></td>
+    <td>Update the progress bar by the specified step.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_process_config" class="internal-link" title="mlforge.mlforge.Pipeline._process_config">_process<wbr></wbr>_config</a></code></td>
+    <td>Process the YAML configuration and convert it into a list of pipeline steps.</td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_run_step" class="internal-link" title="mlforge.mlforge.Pipeline._run_step">_run<wbr></wbr>_step</a></code></td>
+    <td>Run a step of the pipeline.</td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, host: <code>type</code> = None, log_name: <code>str</code> = None, log_level: <code>str</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">info</span><span class="rst-variable-quote">'</span>, log_fname: <code>str</code> = None, prog_bar: <code>bool</code> = True, subtask: <code>bool</code> = False, verbose: <code>bool</code> = False, silent: <code>bool</code> = False)</span>:
+    
+    <a class="headerLink" href="#__init__" title="mlforge.mlforge.Pipeline.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.add_stages">
+    
+  </a>
+  <a name="add_stages">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">add_stages</span><span class="function-signature">(self, stages: <code>list</code>)</span>:
+    
+    <a class="headerLink" href="#add_stages" title="mlforge.mlforge.Pipeline.add_stages">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Add stages to the pipeline.
+
+Parameters
+----------
+stages: list
+    List of stages to be added to the pipeline.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.close">
+    
+  </a>
+  <a name="close">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">close</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#close" title="mlforge.mlforge.Pipeline.close">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Close the pipeline.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.duration">
+    
+  </a>
+  <a name="duration">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">duration</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#duration" title="mlforge.mlforge.Pipeline.duration">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method displays the duration of each stage of the pipeline, and the total duration of the pipeline. Each stage duration is displayed in seconds or in milliseconds, depending on the duration. Each line represents a stage and the last line represents the total duration of the pipeline.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.from_config">
+    
+  </a>
+  <a name="from_config">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">from_config</span><span class="function-signature">(self, config_filename: <code>str</code>)</span>:
+    
+    <a class="headerLink" href="#from_config" title="mlforge.mlforge.Pipeline.from_config">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Load a pipeline from a YAML configuration file.
+
+Parameters
+----------
+config_filename: str
+    Name of the YAML configuration file.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.from_list">
+    
+  </a>
+  <a name="from_list">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">from_list</span><span class="function-signature">(self, steps: <code>list</code>)</span>:
+    
+    <a class="headerLink" href="#from_list" title="mlforge.mlforge.Pipeline.from_list">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Load a pipeline from a list of steps.
+
+Parameters
+----------
+steps: list
+    List of steps to be run. Each step can be a tuple containing the name
+    of the attribute to be created in the host object and the function or
+    class to be called. But also, each step can be a function or method name.
+    In the case of a tuple, the value returned by the function or the fit
+    method of the class will be assigned to the attribute of the host object.
+    In the case of a function or method name, the value returned by the
+    function or the fit method of the class will not be
+    assigned to any attribute of the host object.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.get_attribute">
+    
+  </a>
+  <a name="get_attribute">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_attribute</span><span class="function-signature">(self, attribute_name)</span>:
+    
+    <a class="headerLink" href="#get_attribute" title="mlforge.mlforge.Pipeline.get_attribute">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method returns the value of the attribute with the given name. If the pipeline has not been run, the attribute will not exist and the method will return None. If the attribute does not exist, the method will raise an AttributeError.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.run">
+    
+  </a>
+  <a name="run">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">run</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#run" title="mlforge.mlforge.Pipeline.run">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Run the pipeline.
+
+Parameters
+----------
+steps: list
+    List of steps to be run. Each step can be a tuple containing the name
+    of the attribute to be created in the host object and the function or
+    class to be called. But also, each step can be a function or method name.
+    In the case of a tuple, the value returned by the function or the fit
+    method of the class will be assigned to the attribute of the host object.
+    In the case of a function or method name, the value returned by the
+    function or the fit method of the class will not be assigned to any
+    attribute of the host object.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.show">
+    
+  </a>
+  <a name="show">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">show</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#show" title="mlforge.mlforge.Pipeline.show">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Show the pipeline. Print cards with the steps and the description of each step.</p></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.attributes_">
+    
+  </a>
+  <a name="attributes_">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">attributes_</span>: <code>dict</code> =
+    
+    <a class="headerLink" href="#attributes_" title="mlforge.mlforge.Pipeline.attributes_">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.caller_filename">
+    
+  </a>
+  <a name="caller_filename">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">caller_filename</span> =
+    
+    <a class="headerLink" href="#caller_filename" title="mlforge.mlforge.Pipeline.caller_filename">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.caller_module">
+    
+  </a>
+  <a name="caller_module">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">caller_module</span> =
+    
+    <a class="headerLink" href="#caller_module" title="mlforge.mlforge.Pipeline.caller_module">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.host">
+    
+  </a>
+  <a name="host">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">host</span> =
+    
+    <a class="headerLink" href="#host" title="mlforge.mlforge.Pipeline.host">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.logger">
+    
+  </a>
+  <a name="logger">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">logger</span> =
+    
+    <a class="headerLink" href="#logger" title="mlforge.mlforge.Pipeline.logger">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.objects_">
+    
+  </a>
+  <a name="objects_">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">objects_</span> =
+    
+    <a class="headerLink" href="#objects_" title="mlforge.mlforge.Pipeline.objects_">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.pbar">
+    
+  </a>
+  <a name="pbar">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">pbar</span> =
+    
+    <a class="headerLink" href="#pbar" title="mlforge.mlforge.Pipeline.pbar">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.pipeline">
+    
+  </a>
+  <a name="pipeline">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">pipeline</span> =
+    
+    <a class="headerLink" href="#pipeline" title="mlforge.mlforge.Pipeline.pipeline">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.prog_bar">
+    
+  </a>
+  <a name="prog_bar">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">prog_bar</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#prog_bar" title="mlforge.mlforge.Pipeline.prog_bar">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.run_">
+    
+  </a>
+  <a name="run_">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">run_</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#run_" title="mlforge.mlforge.Pipeline.run_">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.silent">
+    
+  </a>
+  <a name="silent">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">silent</span> =
+    
+    <a class="headerLink" href="#silent" title="mlforge.mlforge.Pipeline.silent">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.subtask">
+    
+  </a>
+  <a name="subtask">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">subtask</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#subtask" title="mlforge.mlforge.Pipeline.subtask">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.verbose">
+    
+  </a>
+  <a name="verbose">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">verbose</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#verbose" title="mlforge.mlforge.Pipeline.verbose">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._build_params">
+    
+  </a>
+  <a name="_build_params">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_build_params</span><span class="function-signature">(self, method_parameters, method_arguments) -&gt; <code>dict</code></span>:
+    
+    <a class="headerLink" href="#_build_params" title="mlforge.mlforge.Pipeline._build_params">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">This method builds the parameters to be passed to the method, using default
+values or values from the host object.
+
+Parameters
+----------
+method_parameters: dict
+    Dictionary containing the parameters that the method accepts.
+method_arguments: dict
+    Dictionary containing the arguments to be passed to the method.
+
+Returns
+-------
+params: dict
+    Dictionary containing the parameters to be passed to the method.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._get_callable_method">
+    
+  </a>
+  <a name="_get_callable_method">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_get_callable_method</span><span class="function-signature">(self, method_name: <code>str</code>, class_name: <code>type</code> = None) -&gt; <code>callable</code></span>:
+    
+    <a class="headerLink" href="#_get_callable_method" title="mlforge.mlforge.Pipeline._get_callable_method">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Given a method name, get the callable method from the `host` object, this
+very object, or the globals. If the method is not found, return None.
+
+Parameters
+----------
+method_name: str
+    Name of the method to be called.
+
+Returns
+-------
+method: callable
+    Method to be called, or None if the method is not found.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._get_method_signature">
+    
+  </a>
+  <a name="_get_method_signature">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_get_method_signature</span><span class="function-signature">(self, method_call)</span>:
+    
+    <a class="headerLink" href="#_get_method_signature" title="mlforge.mlforge.Pipeline._get_method_signature">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Get the signature of a method.
+
+Parameters:
+- method_call: The method to get the signature of.
+
+Returns:
+- method_parameters: A dictionary containing the method's parameters and their
+    default values.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._get_step_components">
+    
+  </a>
+  <a name="_get_step_components">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_get_step_components</span><span class="function-signature">(self, forge_step: <code>tuple</code>, stage: <code><a href="mlforge.mlforge.Stage.html" class="internal-link" title="mlforge.mlforge.Stage">Stage</a></code>)</span>:
+    
+    <a class="headerLink" href="#_get_step_components" title="mlforge.mlforge.Pipeline._get_step_components">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Get the components of a forge step, in a way that can be used to invoke it.
+
+Parameters
+----------
+forge_step: tuple
+    Tuple containing the components of a forge step.
+stage: Stage
+    Named tuple to store the parameters of each step.
+
+Returns
+-------
+attribute_name: str
+    Name of the attribute to be created in the host object.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._m">
+    
+  </a>
+  <a name="_m">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_m</span><span class="function-signature">(self, m: <code>str</code>)</span>:
+    
+    <a class="headerLink" href="#_m" title="mlforge.mlforge.Pipeline._m">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Printout message if verbose is set to True, and log.debug the message.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._parse_step">
+    
+  </a>
+  <a name="_parse_step">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_parse_step</span><span class="function-signature">(self, forge_step)</span>:
+    
+    <a class="headerLink" href="#_parse_step" title="mlforge.mlforge.Pipeline._parse_step">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Parse a forge step to know who is who. The options are
+
+'method_name'
+ClassHolder
+('method_name')
+(ClassHolder)
+
+('method_name', ClassHolder)
+('new_attribute', 'method_name')
+('new_attribute', ClassHolder)
+('method_name', {'param1': 'value1'})
+
+('new_attribute', 'method_name', ClassHolder)
+('new_attribute', 'method_name', {'param1': 'value1'})
+('new_attribute', ClassHolder, {'param1': 'value1'})
+('method_name', ClassHolder, {'param1': 'value1'})
+
+('new_attribute', 'method_name', ClassHolder, {'param1': 'value1'})
+('new_attribute', 'method_name', 'object_name', {'param1': 'value1'})
+
+Parameters
+----------
+step_name: str
+    The forget step.
+
+Returns
+-------
+list
+    A 4-tuple with the attribute name, the method name, the class name
+    and the parameters.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._pbar_close">
+    
+  </a>
+  <a name="_pbar_close">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_pbar_close</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#_pbar_close" title="mlforge.mlforge.Pipeline._pbar_close">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Close the progress bar.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._pbar_create">
+    
+  </a>
+  <a name="_pbar_create">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_pbar_create</span><span class="function-signature">(self, name: <code>str</code> = None)</span>:
+    
+    <a class="headerLink" href="#_pbar_create" title="mlforge.mlforge.Pipeline._pbar_create">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Creates a progress bar using the tqdm library.
+
+The progress bar is used to track the progress of the pipeline execution.
+
+Paramaeters:
+------------
+name (str): The name of the progress bar. Default is None.
+
+Returns:
+    A ProgBar object.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._pbar_update">
+    
+  </a>
+  <a name="_pbar_update">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_pbar_update</span><span class="function-signature">(self, step=1)</span>:
+    
+    <a class="headerLink" href="#_pbar_update" title="mlforge.mlforge.Pipeline._pbar_update">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Update the progress bar by the specified step.
+
+Parameters:
+- step (int): The step size to update the progress bar. Default is 1.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._process_config">
+    
+  </a>
+  <a name="_process_config">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_process_config</span><span class="function-signature">(self, config: <code>dict</code>, caller_module) -&gt; <code>dict</code></span>:
+    
+    <a class="headerLink" href="#_process_config" title="mlforge.mlforge.Pipeline._process_config">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Process the YAML configuration and convert it into a list of pipeline steps.
+
+Parameters
+----------
+config: dict
+    Dictionary containing the YAML configuration.
+
+Returns
+-------
+steps: list
+    List of pipeline steps.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="mlforge.mlforge.Pipeline._run_step">
+    
+  </a>
+  <a name="_run_step">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_run_step</span><span class="function-signature">(self, step_name: <code>Union[<wbr></wbr>Any, <wbr></wbr>str]</code>, list_of_params: <code>List[<wbr></wbr>Any]</code> = None) -&gt; <code>Any</code></span>:
+    
+    <a class="headerLink" href="#_run_step" title="mlforge.mlforge.Pipeline._run_step">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="pre">Run a step of the pipeline.
+
+Parameters
+----------
+step_name: str
+    Function or class to be called.
+list_of_params: list
+    List of parameters to be passed to the function or class.
+
+Returns
+-------
+return_value: any
+    Value returned by the function or the fit method of the class.</p></div>
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for mlforge,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    23.9.1 at 2024-03-30 13:15:11.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

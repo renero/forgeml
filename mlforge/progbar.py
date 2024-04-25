@@ -44,7 +44,7 @@ class ProgBar(metaclass=Singleton):
 
     def __init__(self, name: str = None, num_steps: int = None, subtask: bool = False):
         self.num_steps = num_steps
-        self.subtask = subtask
+        self.sub_task = subtask
         self.progress = Progress(
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             BarColumn(),
@@ -56,7 +56,7 @@ class ProgBar(metaclass=Singleton):
         )
         pb_name = name if name else "Progress..."
         self.main_task = self.progress.add_task(pb_name, total=num_steps)
-        if self.subtask:
+        if self.sub_task:
             self.sub_task = self.progress.add_task('subtask', start=False)
 
     def start_subtask(self, num_steps: int):
@@ -71,6 +71,7 @@ class ProgBar(metaclass=Singleton):
         """
         self.progress.reset(self.sub_task, total=num_steps)
         self.progress.start_task(self.sub_task)
+        return self
 
     def update_subtask(self, advance: int = 1):
         """
