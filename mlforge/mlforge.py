@@ -14,7 +14,7 @@ import typing
 from dataclasses import asdict, dataclass
 from importlib import import_module
 from random import getrandbits
-from typing import Any, List, Union
+from typing import Any, Callable, List, Union
 
 import yaml
 from logconfig import LogConfig
@@ -318,16 +318,19 @@ class Pipeline:
 
         return stage
 
-    def _get_method_signature(self, method_call):
+    def _get_method_signature(self, method_call: Callable):
         """
         Get the signature of a method.
 
         Parameters:
-        - method_call: The method to get the signature of.
+        -----------
+        method_call: Callable
+            The method to get the signature of.
 
         Returns:
-        - method_parameters: A dictionary containing the method's parameters and their
-            default values.
+        --------
+        method_parameters: dict
+            A dictionary containing the method's parameters and their default values.
         """
         parameters = inspect.signature(method_call).parameters
         if parameters is None:

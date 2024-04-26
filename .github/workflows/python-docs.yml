@@ -1,4 +1,4 @@
-name: apidocs
+name: Generate and upload Documentation
 on:
 - push
 

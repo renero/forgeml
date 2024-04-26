@@ -20,12 +20,12 @@ class Singleton(type):
     provides a global point of access to that instance.
 
     Usage:
-    class MyClass(metaclass=Singleton):
-        # class definition
+        class MyClass(metaclass=Singleton):
+            # class definition
 
     Note:
-    This metaclass should be used as a metaclass for the class that you want
-    to make a singleton.
+        This metaclass should be used as a metaclass for the class that you want
+        to make a singleton.
     """
 
     _instances = {}
