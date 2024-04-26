@@ -21,8 +21,7 @@ class SlowClass:
         pass
 
     def slow_method(self, num_steps, delay):
-        p = ProgBar()
-        p.start_subtask(num_steps)
+        p = ProgBar().start_subtask(num_steps)
         for _ in range(num_steps):
             time.sleep(delay)
             p.update_subtask()
