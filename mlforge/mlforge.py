@@ -1,8 +1,7 @@
 """
 
 Pipeline class to define and run several execution steps.
-
-(C) J. Renero, 2023
+@author: Jesús Renero
 
 """
 import importlib

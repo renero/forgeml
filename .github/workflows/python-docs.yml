@@ -1,4 +1,4 @@
-name: Generate and upload Documentation
+name: Generate and upload documentation
 on:
 - push
 

@@ -14,3 +14,4 @@ docs/source/_templates/*
 docs/source/api/*
 *.log
 kk.py
+apidocs/*

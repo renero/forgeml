@@ -1,6 +1,6 @@
 # Test the code on push
 
-name: ForgeML Test
+name: Test and upload code coverage
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install .
-      
+
       - name: show python path
         run: |
           python -c "import sys; print('\n'.join(sys.path))"
