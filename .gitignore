@@ -15,3 +15,4 @@ docs/source/api/*
 *.log
 kk.py
 apidocs/*
+mlforge.egg-info/*
