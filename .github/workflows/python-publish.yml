@@ -5,14 +5,9 @@
 
 name: Upload Python package
 
-# on:
-#   release:
-#     types: [published]
-
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 permissions:
   contents: read
