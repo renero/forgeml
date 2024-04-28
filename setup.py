@@ -1,11 +1,11 @@
 import setuptools
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("README.rst", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="mlforge",
-    version="0.1.0-alpha",
+    version="0.1.0-beta",
     author="J. Renero",
     author_email="jesus.renero@gmail.com",
     description="A package to design and run sequential ML pipelines",
