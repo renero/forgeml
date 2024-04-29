@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="mlforge",
-    version="0.1.0-alpha",
+    version="0.1.1-alpha",
     author="J. Renero",
     author_email="jesus.renero@gmail.com",
     description="A package to design and run sequential ML pipelines",
