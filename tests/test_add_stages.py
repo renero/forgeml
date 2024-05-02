@@ -15,13 +15,12 @@ Tests for the add_stages method.
 import os
 import sys
 import string
-import pytest
+
 
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../mlforge')))
 
-# from mlforge import Pipeline, Stage, LogConfig, Stage
-
+from mlforge import Pipeline, Stage
 
 class TestAddStages:
     def test_add_stages(self):
