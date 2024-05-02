@@ -4,6 +4,15 @@ Pipeline class to define and run several execution steps.
 @author: Jesús Renero
 
 """
+
+# pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
+# pylint: disable=C0103:invalid-name, R0902:too-many-instance-attributes
+# pylint: disable=C0116:missing-function-docstring, C0115:missing-class-docstring
+# pylint: disable=R0913:too-many-arguments, R0903:too-few-public-methods
+# pylint: disable=R0914:too-many-locals, R0915:too-many-statements
+# pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
+# pylint: disable=W0212:protected-access
+
 import importlib
 import inspect
 import logging
@@ -20,16 +29,7 @@ from rich import print as rp
 from rich.columns import Columns
 from rich.table import Table
 
-# from mlforge import LogConfig
-# from mlforge import ProgBar
-
-# pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
-# pylint: disable=C0103:invalid-name, R0902:too-many-instance-attributes
-# pylint: disable=C0116:missing-function-docstring, C0115:missing-class-docstring
-# pylint: disable=R0913:too-many-arguments, R0903:too-few-public-methods
-# pylint: disable=R0914:too-many-locals, R0915:too-many-statements
-# pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
-# pylint: disable=W0212:protected-access
+from .logconfig import LogConfig
 
 
 @dataclass
