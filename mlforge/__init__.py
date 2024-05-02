@@ -1,1 +1,1 @@
-from mlforge.mlforge import Pipeline, ProgBar, Stage, LogConfig
+from mlforge import Pipeline, ProgBar, Stage, LogConfig
