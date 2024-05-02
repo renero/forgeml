@@ -29,7 +29,7 @@ from rich import print as rp
 from rich.columns import Columns
 from rich.table import Table
 
-from .logconfig import LogConfig
+from mlforge.logconfig import LogConfig
 
 
 @dataclass
