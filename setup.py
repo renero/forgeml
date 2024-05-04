@@ -11,7 +11,7 @@ with open(ver_file) as f:
 
 setuptools.setup(
     name="mlforge",
-    VERSION="0.1.4a",
+    version=__version__,
     author="J. Renero",
     author_email="jesus.renero@gmail.com",
     description="A package to design and run sequential ML pipelines",
