@@ -7,10 +7,10 @@ step1:
   method: slow_object.slow_method
   arguments:
     num_steps: 10
-    delay: 0.2
+    delay: 0.1
 # Call it again
 step2:
   method: slow_object.slow_method
   arguments:
     num_steps: 10
-    delay: 0.2
+    delay: 0.1

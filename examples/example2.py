@@ -6,8 +6,13 @@ Example of application of MLForge to a simple case.
 """
 import numpy as np
 import pandas as pd
+import sys
+import os
 
-from mlforge import Pipeline
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
+from mlforge.mlforge import Pipeline
 
 
 # pylint: disable=E1101:no-member, W0201:attribute-defined-outside-init, W0511:fixme
