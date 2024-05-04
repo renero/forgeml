@@ -30,7 +30,6 @@ from rich.columns import Columns
 from rich.table import Table
 
 from mlforge.logconfig import LogConfig
-#from mlforge.progbar import ProgBar
 from mlforge.progbar import ProgBar
 
 
