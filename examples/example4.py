@@ -12,8 +12,13 @@ Example of application of MLForge to a simple case.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
 import time
-from rich.progress import Progress
-from mlforge import Pipeline, ProgBar
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from mlforge.mlforge import Pipeline
+from mlforge.progbar import ProgBar
 
 
 class SlowClass:
@@ -28,7 +33,7 @@ class SlowClass:
 
 class Example:
     def __init__(self):
-        self.pipeline = Pipeline(subtask=True)
+        self.pipeline = Pipeline(subtask=True, description="Example 4")
         self.pipeline.from_config(
             "/Users/renero/phd/code/mlforge/examples/.config4.yaml")
 

@@ -12,8 +12,13 @@ Example of application of MLForge to a simple case.
 # pylint: disable=W0106:expression-not-assigned, R1702:too-many-branches
 
 from sample_classes import HostClass, SampleClass
+import sys
+import os
 
-from mlforge import Pipeline
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
+from mlforge.mlforge import Pipeline
 
 
 def example3():

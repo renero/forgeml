@@ -72,6 +72,8 @@ class Pipeline:
         Name of the log file.
     prog_bar: bool
         Flag indicating whether to display the progress bar.
+    description: str
+        Description of the pipeline to be displayed by the progbar.
     subtask: bool
         Indicates whether to show a secondary progress bar to show the progress of
         each stage. This flag requires that each method in the pipeline will call
@@ -89,6 +91,7 @@ class Pipeline:
             log_level: str = "info",
             log_fname: str = None,
             prog_bar: bool = True,
+            description: str = None,
             subtask: bool = False,
             verbose: bool = False,
             silent: bool = False):
@@ -103,6 +106,7 @@ class Pipeline:
         self.pipeline = []
         self.verbose = verbose
         self.prog_bar = prog_bar
+        self.description = description
         self.subtask = subtask
         self.silent = silent
         self.attributes_ = {}
@@ -233,7 +237,7 @@ class Pipeline:
             attribute of the host object.
         """
         assert self.pipeline, "Pipeline is empty. No steps to run."
-        self._pbar_create()
+        self._pbar_create(name=self.description)
         self._m(f"RUN pipeline with {len(self.pipeline)} steps")
 
         self.logger.info('Pipeline execution started')

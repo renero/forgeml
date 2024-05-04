@@ -46,6 +46,8 @@ class ProgBar(metaclass=Singleton):
         self.num_steps = num_steps
         self.sub_task = subtask
         self.progress = Progress(
+            TextColumn("[progress.description]{task.description:<20s}"),
+            TextColumn("•"),
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             BarColumn(),
             MofNCompleteColumn(),
@@ -54,10 +56,13 @@ class ProgBar(metaclass=Singleton):
             TextColumn("•"),
             TimeRemainingColumn(),
         )
-        pb_name = name if name else "Progress..."
+        pb_name = name if name else "Progress"
+        pb_name = pb_name[:20]+'.' if len(pb_name) > 20 else pb_name
+        if len(pb_name) < 20:
+            pb_name = pb_name + "." * (20 - len(pb_name))
         self.main_task = self.progress.add_task(pb_name, total=num_steps)
         if self.sub_task:
-            self.sub_task = self.progress.add_task('subtask', start=False)
+            self.sub_task = self.progress.add_task(" ↳ Subtask(s)", start=False)
 
     def start_subtask(self, num_steps: int):
         """
