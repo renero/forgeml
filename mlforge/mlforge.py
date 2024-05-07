@@ -135,6 +135,7 @@ class Pipeline:
         """
         Close the pipeline.
         """
+        self._pbar_close()
         self.logger.debug('Pipeline closed')
         self.logger = None
         logging.shutdown()

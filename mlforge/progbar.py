@@ -55,6 +55,7 @@ class ProgBar(metaclass=Singleton):
             TimeElapsedColumn(),
             TextColumn("•"),
             TimeRemainingColumn(),
+            transient=True
         )
         pb_name = name if name else "Progress"
         pb_name = pb_name[:20]+'.' if len(pb_name) > 20 else pb_name
