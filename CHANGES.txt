@@ -1,0 +1,3 @@
+0.1.5a
+------
+- Now you can run multiple pipelines (with or without subtasks) one after another, updating descriptions and lenghts.
