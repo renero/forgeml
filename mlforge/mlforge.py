@@ -135,6 +135,7 @@ class Pipeline:
         """
         Close the pipeline.
         """
+        self._pbar_close()
         self.logger.debug('Pipeline closed')
         self.logger = None
         logging.shutdown()
@@ -289,6 +290,7 @@ class Pipeline:
             self._pbar_update(1)
 
         self._pbar_close()
+        ProgBar.clear()
         self.logger.info('Pipeline execution finished')
         self.run_ = True
 
@@ -840,8 +842,9 @@ class Pipeline:
             return
         self.pbar.progress.update(
             self.pbar.main_task, completed=self.pbar.num_steps)
-        self.pbar.progress.refresh()
+        self.pbar.finished = True
         self.pbar.progress.stop()
+        self.pbar.visible = False
 
     def _m(self, m: str):
         """

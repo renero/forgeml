@@ -27,14 +27,15 @@ class Singleton(type):
         This metaclass should be used as a metaclass for the class that you want
         to make a singleton.
     """
-
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(
-                Singleton, cls).__call__(*args, **kwargs)
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
+
+    def clear(cls):
+        cls._instances = {}
 
 
 class ProgBar(metaclass=Singleton):
@@ -55,12 +56,14 @@ class ProgBar(metaclass=Singleton):
             TimeElapsedColumn(),
             TextColumn("•"),
             TimeRemainingColumn(),
+            transient=True
         )
         pb_name = name if name else "Progress"
         pb_name = pb_name[:20]+'.' if len(pb_name) > 20 else pb_name
         if len(pb_name) < 20:
             pb_name = pb_name + "." * (20 - len(pb_name))
         self.main_task = self.progress.add_task(pb_name, total=num_steps)
+        self.progress.update(self.main_task, completed=0, description=pb_name)
         if self.sub_task:
             self.sub_task = self.progress.add_task(" ↳ Subtask(s)", start=False)
 

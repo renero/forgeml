@@ -1,0 +1,16 @@
+# Create the object of the class I need to call
+step0:
+  attribute: slow_object
+  class: SlowClass
+# Call it once
+step1:
+  method: slow_object.slow_method
+  arguments:
+    num_steps: 10
+    delay: 0.1
+# Call it again
+step2:
+  method: slow_object.slow_method
+  arguments:
+    num_steps: 10
+    delay: 0.1
