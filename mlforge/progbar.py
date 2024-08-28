@@ -38,8 +38,8 @@ class ProgBar(metaclass=Singleton):
 
     def __init__(
             self,
-            name: str=None,
-            num_steps: int=None,
+            name: str = None,
+            num_steps: int = None,
             max_descr_len: int = 20,
             verbose: bool = False):
         self.verbose = verbose
@@ -67,7 +67,7 @@ class ProgBar(metaclass=Singleton):
         self.start_subtask(name, num_steps)
         self.main_task = self.stack[0].id
 
-    def start_subtask(self, name:str=None, steps:int=None):
+    def start_subtask(self, name: str = None, steps: int = None):
         assert steps is not None, "The total number of steps must be provided"
         if name is None:
             name = f"subtask_{len(self.stack)}"
@@ -81,7 +81,8 @@ class ProgBar(metaclass=Singleton):
 
     def update_subtask(self, name, steps):
         idx = self._get_idx(name)
-        assert idx != -1, f"Element '{name}' NOT found in progress bars"
+        assert idx != - 1,\
+            f"Element '{name}' NOT found. Available pbars are: {[n.name for n in self.stack]}"
 
         self.progress.update(self.stack[idx].id, completed=steps, refresh=True)
         change_in_pbar = (steps - self.stack[idx].progress) != 0.0
@@ -100,7 +101,8 @@ class ProgBar(metaclass=Singleton):
             upper_task_id = self.stack[idx - (i + 1)].id
             percentage = (multiplier * (1 / n_steps)) * \
                 self.stack[upper_task_id].steps
-            self.progress.update(upper_task_id, advance=percentage, refresh=True)
+            self.progress.update(
+                upper_task_id, advance=percentage, refresh=True)
             self.stack[upper_task_id].progress += percentage
             multiplier = multiplier * (1 / n_steps)
 

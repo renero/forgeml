@@ -48,19 +48,21 @@ class TestRun:
     # Runs the pipeline successfully with non-empty list of steps.
     def test_runs_pipeline_successfully(self):
         host_object = HostClass()
-        pipeline = Pipeline(host=host_object)
+        pipeline = Pipeline(host=host_object, description="main")
         pipeline.from_list([
             ('function1'),
             ('function2'),
             ('function3')
         ])
         pipeline.run()
+        pipeline.close()
 
     # Raises an assertion error if the pipeline is empty.
     def test_raises_assertion_error_if_pipeline_empty(self):
         pipeline = Pipeline()
         with pytest.raises(AssertionError):
             pipeline.run()
+        pipeline.close()
 
     # Run a pipeline created with no host, and a single step that returns an attribute.
     # Check that the return value is in globals.
@@ -73,6 +75,7 @@ class TestRun:
         pipeline.run()
         assert 'attribute_name' in pipeline.attributes_
         assert pipeline.get_attribute('attribute_name') == 1
+        pipeline.close()
 
     # Create a pipeline with a host object and a simple stage in the pipeline that
     # returns an attribute. check that the attribute is in the host object.
@@ -83,9 +86,8 @@ class TestRun:
         host = Host()
 
         # Create a pipeline
-        pipeline = Pipeline(host=host)
+        pipeline = Pipeline(host=host, prog_bar=False)
         pipeline.from_list([
-            # ('obj', SampleClass),
             ('attribute_name', 'method', SampleClass)
         ])
 
@@ -94,3 +96,4 @@ class TestRun:
 
         # Check if the attribute is in the host object
         assert hasattr(host, 'attribute_name')
+        pipeline.close()
