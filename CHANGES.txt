@@ -1,3 +1,7 @@
+0.2.0a
+------
+- ProgressBar has been updated to refresh more accurately the progress of the entire set of nested pipelines. The API changed a little bit (different progbars are now referenced by their names instead of "ids". Whenever you call "update" you must provide the number of steps from the beginning, not the advance.
+
 0.1.5a
 ------
 - Now you can run multiple pipelines (with or without subtasks) one after another, updating descriptions and lenghts.
