@@ -242,7 +242,7 @@ class Pipeline:
         self._m(f"RUN pipeline with {len(self.pipeline)} steps")
 
         self.logger.info('Pipeline execution started')
-        for stage in self.pipeline:
+        for stage_nr, stage in enumerate(self.pipeline):
             self._m(f"  > Step #{stage._num:>03d}({stage._id})\n"
                     f"    > attribute_name: {stage.attribute_name}\n"
                     f"    > method_name: {stage.method_name}\n"
@@ -287,7 +287,7 @@ class Pipeline:
                 self._m(f"      New attribute: <{stage.attribute_name}>")
 
             print("-"*100) if self.verbose else None
-            self._pbar_update(1)
+            self._pbar_update(stage_nr + 1)
 
         self._pbar_close()
         ProgBar.clear()
@@ -817,8 +817,8 @@ class Pipeline:
         if len(self.pipeline) == 0 or self.silent or not self.prog_bar:
             return None
         self.pbar = ProgBar(
-            name=name, num_steps=len(self.pipeline), subtask=self.subtask)
-        self.pbar.progress.start()
+            name=name, num_steps=len(self.pipeline))
+        # self.pbar.progress.start()
         return self.pbar
 
     def _pbar_update(self, step=1):
@@ -830,9 +830,10 @@ class Pipeline:
         """
         if self.pbar is None:
             return
-        self.pbar.progress.update(self.pbar.main_task,
-                                  advance=step)
-        self.pbar.progress.refresh()
+        self.pbar.update_subtask(self.description, step)
+        # self.pbar.progress.update(self.pbar.main_task,
+        #                           advance=step)
+        # self.pbar.progress.refresh()
 
     def _pbar_close(self):
         """
@@ -840,11 +841,7 @@ class Pipeline:
         """
         if self.pbar is None:
             return
-        self.pbar.progress.update(
-            self.pbar.main_task, completed=self.pbar.num_steps)
-        self.pbar.finished = True
-        self.pbar.progress.stop()
-        self.pbar.visible = False
+        self.pbar.remove(self.description)
 
     def _m(self, m: str):
         """

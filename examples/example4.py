@@ -26,10 +26,11 @@ class SlowClass:
         pass
 
     def slow_method(self, num_steps, delay):
-        p = ProgBar().start_subtask(num_steps)
-        for _ in range(num_steps):
+        p = ProgBar().start_subtask("slow_method", num_steps)
+        for i in range(num_steps):
             time.sleep(delay)
-            p.update_subtask()
+            p.update_subtask("slow_method", i+1)
+        p.remove("slow_method")
 
 class Example:
     def __init__(self):
