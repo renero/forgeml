@@ -287,7 +287,7 @@ class Pipeline:
                 self._m(f"      New attribute: <{stage.attribute_name}>")
 
             print("-"*100) if self.verbose else None
-            self._pbar_update(stage_nr + 1)
+            self._pbar_update(self.description, stage_nr + 1)
 
         self._pbar_close()
         ProgBar.clear()
@@ -801,7 +801,7 @@ class Pipeline:
             return self.attributes_[attribute_name]
         raise AttributeError(f"Attribute '{attribute_name}' not found")
 
-    def _pbar_create(self, name: str = None):
+    def _pbar_create(self, name: str):
         """
             Creates a progress bar using the tqdm library.
 
@@ -821,7 +821,7 @@ class Pipeline:
         # self.pbar.progress.start()
         return self.pbar
 
-    def _pbar_update(self, step=1):
+    def _pbar_update(self, name, step=1):
         """
         Update the progress bar by the specified step.
 
@@ -830,10 +830,9 @@ class Pipeline:
         """
         if self.pbar is None:
             return
-        self.pbar.update_subtask(self.description, step)
-        # self.pbar.progress.update(self.pbar.main_task,
-        #                           advance=step)
-        # self.pbar.progress.refresh()
+        if name is None:
+            name = "subtask_0"
+        self.pbar.update_subtask(name, step)
 
     def _pbar_close(self):
         """
