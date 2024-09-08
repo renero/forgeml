@@ -74,6 +74,9 @@ class ProgBar(metaclass=Singleton):
         id = self.progress.add_task(name, total=steps)
         self.stack.append(Entry(id, name, steps, 0.0))
         self.progress.update(id, completed=0)
+
+        self._m(f"STARTING '{name}' with {steps} steps")
+
         if not self.verbose:
             self.progress.start()
 
@@ -84,11 +87,16 @@ class ProgBar(metaclass=Singleton):
         assert idx != - 1,\
             f"Element '{name}' NOT found. Available pbars are: {[n.name for n in self.stack]}"
 
-        self.progress.update(self.stack[idx].id, completed=steps, refresh=True)
-        change_in_pbar = (steps - self.stack[idx].progress) != 0.0
+        stack_element = self._get_element_by_name(name)
+        self.progress.update(stack_element.id, completed=steps, refresh=True)
+        change_in_pbar = (steps - stack_element.progress) != 0.0
         upper_steps = self._upper_steps(name)
-        last_pbar_in_stack = idx == len(self.stack) - 1
-        self.stack[idx].progress = steps
+
+        # Guess if this is last element in the stack, by checking if the
+        # name corresponds to the last element in the stack
+        last_pbar_in_stack = name == self.stack[-1].name
+
+        stack_element.progress = steps
         self._log_update(name, steps, idx, change_in_pbar, upper_steps)
 
         if upper_steps is None or not last_pbar_in_stack:
@@ -96,14 +104,14 @@ class ProgBar(metaclass=Singleton):
             self._reset_if_completed(idx)
             return
 
-        multiplier = (1 / self.stack[idx].steps)
+        multiplier = (1 / stack_element.steps)
         for i, n_steps in enumerate(upper_steps):
             upper_task_id = self.stack[idx - (i + 1)].id
-            percentage = (multiplier * (1 / n_steps)) * \
-                self.stack[upper_task_id].steps
+            upper_stack_element = self._get_element(upper_task_id)
+            percentage = (multiplier * (1 / n_steps)) * upper_stack_element.steps
             self.progress.update(
                 upper_task_id, advance=percentage, refresh=True)
-            self.stack[upper_task_id].progress += percentage
+            upper_stack_element.progress += percentage
             multiplier = multiplier * (1 / n_steps)
 
             self._log_advance(upper_task_id, percentage)
@@ -119,8 +127,10 @@ class ProgBar(metaclass=Singleton):
             self._m("Cannot remove first element when len > 1")
             return
 
-        self.progress.remove_task(self.stack[idx].id)
+        stack_element = self._get_element_by_name(name)
+        self.progress.remove_task(stack_element.id)
         del self.stack[idx]
+
         if len(self.stack) == 0:
             self.progress.stop()
             self.progress = None
@@ -147,34 +157,47 @@ class ProgBar(metaclass=Singleton):
         )
         return idx
 
+    def _get_element(self, id):
+        return next(
+            (element for element in self.stack if element.id == id), None
+        )
+
+    def _get_element_by_name(self, name):
+        return next(
+            (element for element in self.stack if element.name == name), None
+        )
+
     def _log_advance(self, upper_task_id, percentage):
+        stck_element = self._get_element(upper_task_id)
         self._m(
-            f"-> Advancing '{self.stack[upper_task_id].name}' by {percentage:.4f}"
-            f" steps  (progress: {self.stack[upper_task_id].progress:.4f} / "
-            f"{self.stack[upper_task_id].steps})", end="")
-        if self.stack[upper_task_id].progress > self.stack[upper_task_id].steps:
+            f"-> Advancing '{stck_element.name}' by {percentage:.4f}"
+            f" steps  (progress: {stck_element.progress:.4f} / "
+            f"{stck_element.steps})", end="")
+        if stck_element.progress > stck_element.steps:
             self._m(" - ERROR")
         else:
             self._m("")
 
     def _log_update(self, name, steps, idx, change_in_pbar, upper_steps):
+        stack_element = self._get_element_by_name(name)
         self._m(
-            f"Updating '{name}' (id={self.stack[idx].id}) with {steps} steps"
-            f" (progress: {self.stack[idx].progress:.4f}) / {self.stack[idx].steps}"
-            f" [delta:{change_in_pbar}({(steps - self.stack[idx].progress):E}); "
+            f"Updating '{name}' (id={stack_element.id}) with {steps} steps"
+            f" (progress: {stack_element.progress:.4f}) / {stack_element.steps}"
+            f" [delta:{change_in_pbar}({(steps - stack_element.progress):E}); "
             f" upper_steps:{upper_steps}]",
             end="")
-        if self.stack[idx].progress > self.stack[idx].steps:
+        if stack_element.progress > stack_element.steps:
             self._m(" - ERROR")
         else:
             self._m("")
 
     def _reset_if_completed(self, idx):
+        stack_element = self._get_element(idx)
         if (idx > 0) and (idx < len(self.stack) - 1) and \
-                self.stack[idx].progress >= self.stack[idx].steps:
+                stack_element.progress >= stack_element.steps:
             self._m("\nUPON CONDITION")
-            self.progress.update(self.stack[idx].id, completed=0, refresh=True)
-            self.stack[idx].progress = 0.
+            self.progress.update(stack_element.id, completed=0, refresh=True)
+            stack_element.progress = 0.
 
     def _m(self, str="", **kwargs):
         if not self.verbose:
@@ -184,9 +207,9 @@ class ProgBar(metaclass=Singleton):
 
 def main():
     steps = [2, 3, 3]
-    pbar = PBar("main", steps[0], verbose=False)
+    pbar = ProgBar("main", steps[0], verbose=False)
     for i, n_steps in enumerate(steps[1:]):
-        PBar().start_subtask(f"pbar_{i+1}", n_steps)
+        ProgBar().start_subtask(f"pbar_{i+1}", n_steps)
 
     for i in range(steps[0]):
         for j in range(steps[1]):
