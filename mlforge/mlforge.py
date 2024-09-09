@@ -221,24 +221,19 @@ class Pipeline:
             stage._id = f"{getrandbits(32):08x}"
             self.pipeline.append(stage)
 
-    def run(self):
+    def run(self, num_steps: int = None):
         """
         Run the pipeline.
 
         Parameters
         ----------
-        steps: list
-            List of steps to be run. Each step can be a tuple containing the name
-            of the attribute to be created in the host object and the function or
-            class to be called. But also, each step can be a function or method name.
-            In the case of a tuple, the value returned by the function or the fit
-            method of the class will be assigned to the attribute of the host object.
-            In the case of a function or method name, the value returned by the
-            function or the fit method of the class will not be assigned to any
-            attribute of the host object.
+        num_steps: int
+            The number of steps that contains the pipeline. If not specified, the
+            number of steps in the pipeline is used.
         """
         assert self.pipeline, "Pipeline is empty. No steps to run."
-        self._pbar_create(name=self.description)
+        n_steps = len(self.pipeline) if num_steps is None else num_steps
+        self._pbar_create(name=self.description, num_steps=n_steps)
         self._m(f"RUN pipeline with {len(self.pipeline)} steps")
 
         self.logger.info('Pipeline execution started')
@@ -744,6 +739,12 @@ class Pipeline:
             print(
                 f"Total duration: {total_duration:.2f} s")
 
+    def len(self):
+        """
+        Return the number of steps in the pipeline.
+        """
+        return len(self.pipeline)
+
     def _process_config(self, config: dict, caller_module) -> dict:
         """
         Process the YAML configuration and convert it into a list of pipeline steps.
@@ -801,7 +802,7 @@ class Pipeline:
             return self.attributes_[attribute_name]
         raise AttributeError(f"Attribute '{attribute_name}' not found")
 
-    def _pbar_create(self, name: str):
+    def _pbar_create(self, name: str, num_steps: int) -> ProgBar:
         """
             Creates a progress bar using the tqdm library.
 
@@ -810,6 +811,7 @@ class Pipeline:
             Paramaeters:
             ------------
             name (str): The name of the progress bar. Default is None.
+            num_steps (int): The number of steps in the pipeline. Default is 0.
 
             Returns:
                 A ProgBar object.
@@ -817,8 +819,8 @@ class Pipeline:
         if len(self.pipeline) == 0 or self.silent or not self.prog_bar:
             return None
         self.pbar = ProgBar(
-            name=name, num_steps=len(self.pipeline))
-        # self.pbar.progress.start()
+            name=name, num_steps=num_steps, verbose=self.verbose)
+
         return self.pbar
 
     def _pbar_update(self, name, step=1):
@@ -853,3 +855,131 @@ class Pipeline:
         # Remove any newline character from the message
         m = m.replace('\n', '')
         self.logger.debug(m)
+
+    def contains_method(self, method_name: str, exact_match: bool = False) -> bool:
+        """
+        This method checks if the given method is part of the pipeline.
+
+        Parameters
+        ----------
+        method_name: str
+            The name of the method to check.
+        exact_match: bool
+            If True, the method name must match exactly. If False, the method name
+            can be any substring of the method name.
+
+        Returns
+        -------
+        stage: Stage
+            The stage that contains the method.
+        """
+        if method_name is None:
+            raise ValueError("method_name must not be None")
+        if self.pipeline is None:
+            raise ValueError("pipeline must not be None")
+
+        if not isinstance(method_name, str):
+            raise TypeError("method_name must be a string.")
+        if not isinstance(exact_match, bool):
+            raise TypeError("exact_match must be a boolean.")
+
+        if exact_match:
+            for stage in self.pipeline:
+                if stage.method_name == method_name:
+                    return True
+        else:
+            for stage in self.pipeline:
+                if stage.method_name is None:
+                    continue
+                if method_name in stage.method_name:
+                    return True
+
+        return False
+
+    def contains_class(self, class_name: str) -> bool:
+        """
+        This method checks if the given class is part of the pipeline.
+
+        Parameters
+        ----------
+        class_name: str
+            The name of the class to check.
+
+        Returns
+        -------
+        stage: Stage
+            The stage that contains the class.
+        """
+        if class_name is None:
+            raise ValueError("class_name must not be None")
+        if self.pipeline is None:
+            raise ValueError("pipeline must not be None")
+
+        if not isinstance(class_name, str):
+            raise TypeError("class_name must be a string.")
+
+        return any(stage.class_name == class_name for stage in self.pipeline)
+
+    def contains_argument(self, attribute_name: str) -> bool:
+        """
+        This method checks if the given attribute is part of the pipeline.
+
+        Parameters
+        ----------
+        attribute_name: str
+            The name of the attribute to check.
+
+        Returns
+        -------
+        stage: Stage
+            The stage that contains the attribute.
+        """
+        if attribute_name is None:
+            raise ValueError("attribute_name must not be None")
+        if self.pipeline is None:
+            raise ValueError("pipeline must not be None")
+
+        if not isinstance(attribute_name, str):
+            raise TypeError("attribute_name must be a string.")
+
+        # Go through every stage in the pipeline, and then through every argument,
+        # if any, to check if the attribute_name matches
+        for stage in self.pipeline:
+            # Check if there's an argument
+            if stage.arguments is not None:
+                if stage.arguments.get(attribute_name) is not None:
+                    return True
+
+        return False
+
+    def get_argument_value(self, attribute_name: str):
+        """
+        This method returns the value of the given attribute.
+
+        Parameters
+        ----------
+        attribute_name: str
+            The name of the attribute to get the value of.
+
+        Returns
+        -------
+        attribute_value: Any
+            The value of the attribute.
+        """
+        if attribute_name is None:
+            raise ValueError("attribute_name must not be None")
+        if self.pipeline is None:
+            raise ValueError("pipeline must not be None")
+
+        if not isinstance(attribute_name, str):
+            raise TypeError("attribute_name must be a string.")
+
+        # Go through every stage in the pipeline, and then through every argument,
+        # if any, to check if the attribute_name matches
+        for stage in self.pipeline:
+            # Check if there's an argument
+            if stage.arguments is not None:
+                if stage.arguments.get(attribute_name) is not None:
+                    return stage.arguments[attribute_name]
+
+        return None
