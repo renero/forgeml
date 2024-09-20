@@ -878,8 +878,8 @@ class Pipeline:
 
         Returns
         -------
-        stage: Stage
-            The stage that contains the method.
+        stage: int
+            The number of times that the method is found.
         """
         if method_name is None:
             raise ValueError("method_name must not be None")
@@ -891,18 +891,19 @@ class Pipeline:
         if not isinstance(exact_match, bool):
             raise TypeError("exact_match must be a boolean.")
 
+        num_found = 0
         if exact_match:
             for stage in self.pipeline:
                 if stage.method_name == method_name:
-                    return True
+                    num_found += 1
         else:
             for stage in self.pipeline:
                 if stage.method_name is None:
                     continue
                 if method_name in stage.method_name:
-                    return True
+                    num_found += 1
 
-        return False
+        return num_found
 
     def contains_class(self, class_name: str) -> bool:
         """
