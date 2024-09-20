@@ -1,3 +1,10 @@
+0.2.1a
+------
+- Arguments can now be "strings" that are interpreted also as literals if not found
+  in the host object.
+- Added method (`all_argument_values`) to retrieve a list with all the values that a
+  given argument takes.
+
 0.2.0a
 ------
 - ProgressBar has been updated to refresh more accurately the progress of the entire set of nested pipelines. The API changed a little bit (different progbars are now referenced by their names instead of "ids". Whenever you call "update" you must provide the number of steps from the beginning, not the advance.

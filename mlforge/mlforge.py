@@ -570,6 +570,14 @@ class Pipeline:
                     if method_arguments[parameter] in self.objects_:
                         params[parameter] = self.objects_[
                             method_arguments[parameter]]
+                    # XXX experimental
+                    elif isinstance(method_arguments[parameter], str):
+                        if hasattr(self.host, method_arguments[parameter]):
+                            params[parameter] = getattr(
+                                self.host, method_arguments[parameter])
+                        else: # It's a literal string
+                            params[parameter] = method_arguments[parameter]
+                    # XXX experimental
                     else:
                         params[parameter] = method_arguments[parameter]
                     continue
@@ -983,3 +991,30 @@ class Pipeline:
                     return stage.arguments[attribute_name]
 
         return None
+
+    def all_argument_values(self, attribute_name:str):
+        """
+        This method returns a list with all values of the given attribute
+        in the pipeline. If the attribute is not found, the method returns None.
+
+        Parameters
+        ----------
+        attribute_name: str
+            The name of the attribute to get the value of.
+
+        Returns
+        -------
+        attribute_values: list
+            A list with all values of the attribute.
+        """
+        assert attribute_name is not None, "attribute_name must not be None"
+        assert self.pipeline != [], "pipeline must be initialized"
+        assert isinstance(attribute_name, str), "attribute_name must be a string"
+
+        attribute_values = []
+        for stage in self.pipeline:
+            if stage.arguments is not None:
+                if stage.arguments.get(attribute_name) is not None:
+                    attribute_values.append(stage.arguments[attribute_name])
+
+        return attribute_values
