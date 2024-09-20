@@ -940,7 +940,7 @@ class Pipeline:
         Returns
         -------
         stage: Stage
-            The stage that contains the attribute.
+            The number of times that the argument is found.
         """
         if attribute_name is None:
             raise ValueError("attribute_name must not be None")
@@ -952,13 +952,14 @@ class Pipeline:
 
         # Go through every stage in the pipeline, and then through every argument,
         # if any, to check if the attribute_name matches
+        num_found = 0
         for stage in self.pipeline:
             # Check if there's an argument
             if stage.arguments is not None:
                 if stage.arguments.get(attribute_name) is not None:
-                    return True
+                    num_found += 1
 
-        return False
+        return num_found
 
     def get_argument_value(self, attribute_name: str):
         """
