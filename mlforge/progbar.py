@@ -193,6 +193,9 @@ class ProgBar(metaclass=Singleton):
 
     def _reset_if_completed(self, idx):
         stack_element = self._get_element(idx)
+        if stack_element is None:
+            return
+
         if (idx > 0) and (idx < len(self.stack) - 1) and \
                 stack_element.progress >= stack_element.steps:
             self._m("\nUPON CONDITION")
