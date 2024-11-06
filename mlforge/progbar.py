@@ -40,7 +40,7 @@ class ProgBar(metaclass=Singleton):
             self,
             name: str = None,
             num_steps: int = None,
-            max_descr_len: int = 20,
+            max_descr_len: int = 30,
             verbose: bool = False):
         self.verbose = verbose
         self.max_descr_len = max_descr_len
