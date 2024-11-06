@@ -187,7 +187,47 @@
         
 
         
+            <div class="itemName"><code><a href="#all_argument_values" class="internal-link" title="mlforge.mlforge.Pipeline.all_argument_values">all<wbr></wbr>_argument<wbr></wbr>_values</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#close" class="internal-link" title="mlforge.mlforge.Pipeline.close">close</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#contains_argument" class="internal-link" title="mlforge.mlforge.Pipeline.contains_argument">contains<wbr></wbr>_argument</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#contains_class" class="internal-link" title="mlforge.mlforge.Pipeline.contains_class">contains<wbr></wbr>_class</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#contains_method" class="internal-link" title="mlforge.mlforge.Pipeline.contains_method">contains<wbr></wbr>_method</a></code>
             </div>
         
 
@@ -227,7 +267,27 @@
         
 
         
+            <div class="itemName"><code><a href="#get_argument_value" class="internal-link" title="mlforge.mlforge.Pipeline.get_argument_value">get<wbr></wbr>_argument<wbr></wbr>_value</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#get_attribute" class="internal-link" title="mlforge.mlforge.Pipeline.get_attribute">get<wbr></wbr>_attribute</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#len" class="internal-link" title="mlforge.mlforge.Pipeline.len">len</a></code>
             </div>
         
 
@@ -598,7 +658,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Pipeline</span>: <a href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L51" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="mlforge.mlforge.Pipeline.__init__">Pipeline(host, log_name, log_level, log_fname, ...)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Pipeline</span>: <a href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L51" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="mlforge.mlforge.Pipeline.__init__">Pipeline(host, log_name, log_level, log_fname, ...)</a></code></p>
           <p><a href="classIndex.html#mlforge.mlforge.Pipeline">View In Hierarchy</a></p>
         </div>
 
@@ -657,8 +717,28 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
   </tr><tr class="method">
     
     <td>Method</td>
+    <td><code><a href="#all_argument_values" class="internal-link" title="mlforge.mlforge.Pipeline.all_argument_values">all<wbr></wbr>_argument<wbr></wbr>_values</a></code></td>
+    <td>This method returns a list with all values of the given attribute in the pipeline. If the attribute is not found, the method returns None.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
     <td><code><a href="#close" class="internal-link" title="mlforge.mlforge.Pipeline.close">close</a></code></td>
     <td>Close the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#contains_argument" class="internal-link" title="mlforge.mlforge.Pipeline.contains_argument">contains<wbr></wbr>_argument</a></code></td>
+    <td>This method checks if the given attribute is part of the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#contains_class" class="internal-link" title="mlforge.mlforge.Pipeline.contains_class">contains<wbr></wbr>_class</a></code></td>
+    <td>This method checks if the given class is part of the pipeline.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#contains_method" class="internal-link" title="mlforge.mlforge.Pipeline.contains_method">contains<wbr></wbr>_method</a></code></td>
+    <td>This method checks if the given method is part of the pipeline.</td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -677,8 +757,18 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
   </tr><tr class="method">
     
     <td>Method</td>
+    <td><code><a href="#get_argument_value" class="internal-link" title="mlforge.mlforge.Pipeline.get_argument_value">get<wbr></wbr>_argument<wbr></wbr>_value</a></code></td>
+    <td>This method returns the value of the given attribute.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
     <td><code><a href="#get_attribute" class="internal-link" title="mlforge.mlforge.Pipeline.get_attribute">get<wbr></wbr>_attribute</a></code></td>
     <td>This method returns the value of the attribute with the given name. If the pipeline has not been run, the attribute will not exist and the method will return None. If the attribute does not exist, the method will raise an AttributeError.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#len" class="internal-link" title="mlforge.mlforge.Pipeline.len">len</a></code></td>
+    <td>Return the number of steps in the pipeline.</td>
   </tr><tr class="method">
     
     <td>Method</td>
@@ -835,7 +925,7 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, host: <code><a href="https://docs.python.org/3/library/functions.html#type" class="intersphinx-link">type</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, log_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, log_level: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">info</span><span class="rst-variable-quote">'</span>, log_fname: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, prog_bar: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, description: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, subtask: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, verbose: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, silent: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L87">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L87">
       
       (source)
     </a>
@@ -862,7 +952,7 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
     
     
     <span class="py-keyword">def</span> <span class="py-defname">add_stages</span><span class="function-signature">(self, stages: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L204">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L204">
       
       (source)
     </a>
@@ -887,6 +977,49 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
 </div><div class="basemethod">
   
   
+  <a name="mlforge.mlforge.Pipeline.all_argument_values">
+    
+  </a>
+  <a name="all_argument_values">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">all_argument_values</span><span class="function-signature">(self, attribute_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L997">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#all_argument_values" title="mlforge.mlforge.Pipeline.all_argument_values">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method returns a list with all values of the given attribute
+in the pipeline. If the attribute is not found, the method returns None.</p>
+<div class="rst-section" id="rst-parameters">
+<h2 class="heading">Parameters</h2>
+<dl class="rst-docutils">
+<dt>attribute_name: str</dt>
+<dd>The name of the attribute to get the value of.</dd>
+</dl>
+</div>
+<div class="rst-section" id="rst-returns">
+<h2 class="heading">Returns</h2>
+<dl class="rst-docutils">
+<dt>attribute_values: list</dt>
+<dd>A list with all values of the attribute.</dd>
+</dl>
+</div>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="mlforge.mlforge.Pipeline.close">
     
   </a>
@@ -897,7 +1030,7 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
     
     
     <span class="py-keyword">def</span> <span class="py-defname">close</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L134">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L134">
       
       (source)
     </a>
@@ -914,6 +1047,135 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
 </div><div class="basemethod">
   
   
+  <a name="mlforge.mlforge.Pipeline.contains_argument">
+    
+  </a>
+  <a name="contains_argument">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">contains_argument</span><span class="function-signature">(self, attribute_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L932">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#contains_argument" title="mlforge.mlforge.Pipeline.contains_argument">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method checks if the given attribute is part of the pipeline.</p>
+<div class="rst-section" id="rst-parameters">
+<h2 class="heading">Parameters</h2>
+<dl class="rst-docutils">
+<dt>attribute_name: str</dt>
+<dd>The name of the attribute to check.</dd>
+</dl>
+</div>
+<div class="rst-section" id="rst-returns">
+<h2 class="heading">Returns</h2>
+<dl class="rst-docutils">
+<dt>stage: Stage</dt>
+<dd>The number of times that the argument is found.</dd>
+</dl>
+</div>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.contains_class">
+    
+  </a>
+  <a name="contains_class">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">contains_class</span><span class="function-signature">(self, class_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L908">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#contains_class" title="mlforge.mlforge.Pipeline.contains_class">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method checks if the given class is part of the pipeline.</p>
+<div class="rst-section" id="rst-parameters">
+<h2 class="heading">Parameters</h2>
+<dl class="rst-docutils">
+<dt>class_name: str</dt>
+<dd>The name of the class to check.</dd>
+</dl>
+</div>
+<div class="rst-section" id="rst-returns">
+<h2 class="heading">Returns</h2>
+<dl class="rst-docutils">
+<dt>stage: Stage</dt>
+<dd>The stage that contains the class.</dd>
+</dl>
+</div>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="mlforge.mlforge.Pipeline.contains_method">
+    
+  </a>
+  <a name="contains_method">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">contains_method</span><span class="function-signature">(self, method_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, exact_match: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L867">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#contains_method" title="mlforge.mlforge.Pipeline.contains_method">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method checks if the given method is part of the pipeline.</p>
+<div class="rst-section" id="rst-parameters">
+<h2 class="heading">Parameters</h2>
+<dl class="rst-docutils">
+<dt>method_name: str</dt>
+<dd>The name of the method to check.</dd>
+<dt>exact_match: bool</dt>
+<dd>If True, the method name must match exactly. If False, the method name
+can be any substring of the method name.</dd>
+</dl>
+</div>
+<div class="rst-section" id="rst-returns">
+<h2 class="heading">Returns</h2>
+<dl class="rst-docutils">
+<dt>stage: int</dt>
+<dd>The number of times that the method is found.</dd>
+</dl>
+</div>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="mlforge.mlforge.Pipeline.duration">
     
   </a>
@@ -924,7 +1186,7 @@ the <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="ml
     
     
     <span class="py-keyword">def</span> <span class="py-defname">duration</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L721">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L724">
       
       (source)
     </a>
@@ -954,7 +1216,7 @@ and the last line represents the total duration of the pipeline.</p></div>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">from_config</span><span class="function-signature">(self, config_filename: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L183">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L183">
       
       (source)
     </a>
@@ -989,7 +1251,7 @@ and the last line represents the total duration of the pipeline.</p></div>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">from_list</span><span class="function-signature">(self, steps: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L143">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L143">
       
       (source)
     </a>
@@ -1021,6 +1283,48 @@ assigned to any attribute of the host object.</dd>
 </div><div class="basemethod">
   
   
+  <a name="mlforge.mlforge.Pipeline.get_argument_value">
+    
+  </a>
+  <a name="get_argument_value">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_argument_value</span><span class="function-signature">(self, attribute_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L965">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#get_argument_value" title="mlforge.mlforge.Pipeline.get_argument_value">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>This method returns the value of the given attribute.</p>
+<div class="rst-section" id="rst-parameters">
+<h2 class="heading">Parameters</h2>
+<dl class="rst-docutils">
+<dt>attribute_name: str</dt>
+<dd>The name of the attribute to get the value of.</dd>
+</dl>
+</div>
+<div class="rst-section" id="rst-returns">
+<h2 class="heading">Returns</h2>
+<dl class="rst-docutils">
+<dt>attribute_value: Any</dt>
+<dd>The value of the attribute.</dd>
+</dl>
+</div>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="mlforge.mlforge.Pipeline.get_attribute">
     
   </a>
@@ -1031,7 +1335,7 @@ assigned to any attribute of the host object.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">get_attribute</span><span class="function-signature">(self, attribute_name)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L791">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L800">
       
       (source)
     </a>
@@ -1051,6 +1355,33 @@ AttributeError.</p></div>
 </div><div class="basemethod">
   
   
+  <a name="mlforge.mlforge.Pipeline.len">
+    
+  </a>
+  <a name="len">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">len</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L750">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#len" title="mlforge.mlforge.Pipeline.len">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Return the number of steps in the pipeline.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="mlforge.mlforge.Pipeline.run">
     
   </a>
@@ -1060,8 +1391,8 @@ AttributeError.</p></div>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">run</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L224">
+    <span class="py-keyword">def</span> <span class="py-defname">run</span><span class="function-signature">(self, num_steps: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L224">
       
       (source)
     </a>
@@ -1077,15 +1408,9 @@ AttributeError.</p></div>
 <div class="rst-section" id="rst-parameters">
 <h2 class="heading">Parameters</h2>
 <dl class="rst-docutils">
-<dt>steps: list</dt>
-<dd>List of steps to be run. Each step can be a tuple containing the name
-of the attribute to be created in the host object and the function or
-class to be called. But also, each step can be a function or method name.
-In the case of a tuple, the value returned by the function or the fit
-method of the class will be assigned to the attribute of the host object.
-In the case of a function or method name, the value returned by the
-function or the fit method of the class will not be assigned to any
-attribute of the host object.</dd>
+<dt>num_steps: int</dt>
+<dd>The number of steps that contains the pipeline. If not specified, the
+number of steps in the pipeline is used.</dd>
 </dl>
 </div>
 </div>
@@ -1103,7 +1428,7 @@ attribute of the host object.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">show</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L683">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L686">
       
       (source)
     </a>
@@ -1129,7 +1454,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">attributes_</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L112">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L112">
       
       (source)
     </a>
@@ -1156,7 +1481,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">caller_filename</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L102">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L102">
       
       (source)
     </a>
@@ -1183,7 +1508,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">caller_module</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L101">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L101">
       
       (source)
     </a>
@@ -1210,7 +1535,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">description</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L109">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L109">
       
       (source)
     </a>
@@ -1237,7 +1562,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">host</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L105">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L105">
       
       (source)
     </a>
@@ -1264,7 +1589,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">logger</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L129">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L129">
       
       (source)
     </a>
@@ -1291,7 +1616,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">objects_</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L113">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L113">
       
       (source)
     </a>
@@ -1318,7 +1643,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">pbar</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L114">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L114">
       
       (source)
     </a>
@@ -1345,7 +1670,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">pipeline</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L106">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L106">
       
       (source)
     </a>
@@ -1372,7 +1697,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">prog_bar</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L108">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L108">
       
       (source)
     </a>
@@ -1399,7 +1724,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">run_</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L115">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L115">
       
       (source)
     </a>
@@ -1426,7 +1751,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">silent</span> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L111">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L111">
       
       (source)
     </a>
@@ -1453,7 +1778,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">subtask</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L110">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L110">
       
       (source)
     </a>
@@ -1480,7 +1805,7 @@ attribute of the host object.</dd>
   <div class="functionHeader">
     
     <span class="py-defname">verbose</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L107">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L107">
       
       (source)
     </a>
@@ -1508,7 +1833,7 @@ attribute of the host object.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_build_params</span><span class="function-signature">(self, method_parameters, method_arguments) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L539">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L534">
       
       (source)
     </a>
@@ -1553,7 +1878,7 @@ values or values from the host object.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_callable_method</span><span class="function-signature">(self, method_name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, class_name: <code><a href="https://docs.python.org/3/library/functions.html#type" class="intersphinx-link">type</a></code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#callable" class="intersphinx-link">callable</a></code></span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L471">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L466">
       
       (source)
     </a>
@@ -1596,7 +1921,7 @@ very object, or the globals. If the method is not found, return None.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_method_signature</span><span class="function-signature">(self, method_call: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L328">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L323">
       
       (source)
     </a>
@@ -1638,7 +1963,7 @@ very object, or the globals. If the method is not found, return None.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_step_components</span><span class="function-signature">(self, forge_step: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a></code>, stage: <code><a href="mlforge.mlforge.Stage.html" class="internal-link" title="mlforge.mlforge.Stage">Stage</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L297">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L292">
       
       (source)
     </a>
@@ -1682,7 +2007,7 @@ very object, or the globals. If the method is not found, return None.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_m</span><span class="function-signature">(self, m: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L845">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L855">
       
       (source)
     </a>
@@ -1709,7 +2034,7 @@ very object, or the globals. If the method is not found, return None.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_parse_step</span><span class="function-signature">(self, forge_step)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L348">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L343">
       
       (source)
     </a>
@@ -1766,7 +2091,7 @@ and the parameters.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_pbar_close</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L837">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L847">
       
       (source)
     </a>
@@ -1792,8 +2117,8 @@ and the parameters.</dd>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">_pbar_create</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L804">
+    <span class="py-keyword">def</span> <span class="py-defname">_pbar_create</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, num_steps: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code>) -&gt; <code><a href="mlforge.progbar.ProgBar.html" class="internal-link" title="mlforge.progbar.ProgBar">ProgBar</a></code></span>:
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L813">
       
       (source)
     </a>
@@ -1809,7 +2134,8 @@ and the parameters.</dd>
 <p>The progress bar is used to track the progress of the pipeline execution.</p>
 <div class="rst-section" id="rst-paramaeters">
 <h2 class="heading">Paramaeters:</h2>
-<p>name (str): The name of the progress bar. Default is None.</p>
+<p>name (str): The name of the progress bar. Default is None.
+num_steps (int): The number of steps in the pipeline. Default is 0.</p>
 <dl class="rst-docutils">
 <dt>Returns:</dt>
 <dd>A ProgBar object.</dd>
@@ -1830,7 +2156,7 @@ and the parameters.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_pbar_update</span><span class="function-signature">(self, name, step=1)</span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L824">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L834">
       
       (source)
     </a>
@@ -1860,7 +2186,7 @@ and the parameters.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_process_config</span><span class="function-signature">(self, config: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, caller_module) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L747">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L756">
       
       (source)
     </a>
@@ -1902,7 +2228,7 @@ and the parameters.</dd>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_run_step</span><span class="function-signature">(self, step_name: <code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a> | <a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, list_of_params: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></span>:
-    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/f517629abfc6532085d5de89e3991d54095c2bc4/mlforge/mlforge.py#L606">
+    <a class="sourceLink" href="https://github.com/renero/mlforge/tree/41f23863d27b66d5700480e8eb69f54f70ab6023/mlforge/mlforge.py#L609">
       
       (source)
     </a>
@@ -1945,7 +2271,7 @@ and the parameters.</dd>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/renero/mlforge" class="projecthome">MLForge</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    24.3.3 at 2024-08-28 09:36:41.
+    24.3.3 at 2024-11-06 10:11:22.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
